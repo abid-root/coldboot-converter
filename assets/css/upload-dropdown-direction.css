@@ -1,0 +1,83 @@
+﻿/* Upload dropdown direction fix: down by default, up only when needed */
+.upload-panel,
+.upload-box,
+.upload-zone,
+.drop-zone,
+.upload-actions,
+.upload-split {
+  overflow: visible !important;
+}
+
+.upload-split {
+  position: relative !important;
+}
+
+/* Default: open DOWN */
+.upload-menu {
+  position: absolute !important;
+  top: calc(100% + 10px) !important;
+  bottom: auto !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 4px !important;
+  min-width: 245px !important;
+  padding: 8px !important;
+  border-radius: 14px !important;
+  background: #171720 !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  box-shadow: 0 22px 60px rgba(0,0,0,0.48) !important;
+  z-index: 999 !important;
+}
+
+.upload-menu[hidden] {
+  display: none !important;
+}
+
+/* When screen has no room below: open UP */
+.upload-split.drop-up .upload-menu {
+  top: auto !important;
+  bottom: calc(100% + 10px) !important;
+}
+
+/* Force down when enough room */
+.upload-split.drop-down .upload-menu {
+  top: calc(100% + 10px) !important;
+  bottom: auto !important;
+}
+
+.upload-menu button {
+  width: 100% !important;
+  text-align: left !important;
+  justify-content: flex-start !important;
+  padding: 10px 12px !important;
+  border-radius: 10px !important;
+}
+
+/* Small arrow */
+.upload-menu::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background: #171720;
+  border: 1px solid rgba(255,255,255,0.12);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.upload-split.drop-up .upload-menu::after {
+  bottom: -6px;
+  border-left: 0;
+  border-top: 0;
+}
+
+.upload-split.drop-down .upload-menu::after,
+.upload-split:not(.drop-up) .upload-menu::after {
+  top: -6px;
+  border-right: 0;
+  border-bottom: 0;
+}

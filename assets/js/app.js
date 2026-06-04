@@ -416,71 +416,6 @@ function bindPreviewTools() {
 
 init();
 
-/* Queue see more controller start */
-function setupQueueSeeMore() {
-  const panel = document.getElementById('queuePanel');
-  if (!panel) return;
-
-  const getList = () => panel.querySelector('.queue-list');
-  const getActions = () => panel.querySelector('.queue-actions');
-
-  function refreshQueueLimit() {
-    const list = getList();
-    const actions = getActions();
-    if (!list || !actions) return;
-
-    const rows = Array.from(list.querySelectorAll('.queue-row'));
-    const total = rows.length;
-
-    panel.classList.toggle('queue-has-more', total > 3);
-
-    let button = document.getElementById('seeMoreQueueButton');
-
-    if (total <= 3) {
-      panel.classList.remove('queue-expanded');
-      if (button) button.remove();
-      return;
-    }
-
-    if (!button) {
-      button = document.createElement('button');
-      button.id = 'seeMoreQueueButton';
-      button.className = 'line-button queue-see-more';
-      button.type = 'button';
-
-      const firstChild = actions.firstElementChild;
-      if (firstChild && firstChild.nextSibling) {
-        actions.insertBefore(button, firstChild.nextSibling);
-      } else {
-        actions.prepend(button);
-      }
-
-      button.addEventListener('click', () => {
-        panel.classList.toggle('queue-expanded');
-        refreshQueueLimit();
-      });
-    }
-
-    const expanded = panel.classList.contains('queue-expanded');
-    button.textContent = expanded ? 'Show less' : `See more (${total - 3})`;
-    button.setAttribute('aria-expanded', String(expanded));
-  }
-
-  const list = getList();
-  if (list) {
-    const observer = new MutationObserver(refreshQueueLimit);
-    observer.observe(list, { childList: true });
-  }
-
-  refreshQueueLimit();
-}
-
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', setupQueueSeeMore);
-} else {
-  setupQueueSeeMore();
-}
-/* Queue see more controller end */
 
 /* Click empty upload area to choose files start */
 function setupWholeDropBoxClick() {
@@ -529,4 +464,109 @@ if (document.readyState === 'loading') {
   setupWholeDropBoxClick();
 }
 /* Click empty upload area to choose files end */
+
+/* Queue see more controller start */
+function setupQueueSeeMore() {
+  const panel = document.getElementById('queuePanel');
+  if (!panel) return;
+
+  const list = panel.querySelector('.queue-list');
+  const actions = panel.querySelector('.queue-actions');
+  if (!list || !actions) return;
+
+  function refreshQueueLimit() {
+    const rows = Array.from(list.querySelectorAll('.queue-row'));
+    const total = rows.length;
+
+    panel.classList.toggle('queue-has-more', total > 3);
+
+    let button = document.getElementById('seeMoreQueueButton');
+
+    if (total <= 3) {
+      panel.classList.remove('queue-expanded');
+      if (button) button.remove();
+      return;
+    }
+
+    if (!button) {
+      button = document.createElement('button');
+      button.id = 'seeMoreQueueButton';
+      button.className = 'line-button queue-see-more';
+      button.type = 'button';
+
+      const firstChild = actions.firstElementChild;
+      if (firstChild && firstChild.nextSibling) {
+        actions.insertBefore(button, firstChild.nextSibling);
+      } else {
+        actions.prepend(button);
+      }
+
+      button.addEventListener('click', () => {
+        panel.classList.toggle('queue-expanded');
+        refreshQueueLimit();
+      });
+    }
+
+    const expanded = panel.classList.contains('queue-expanded');
+    button.textContent = expanded ? 'Show less' : `See more (${total - 3})`;
+    button.setAttribute('aria-expanded', String(expanded));
+  }
+
+  const observer = new MutationObserver(refreshQueueLimit);
+  observer.observe(list, { childList: true });
+
+  refreshQueueLimit();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupQueueSeeMore);
+} else {
+  setupQueueSeeMore();
+}
+/* Queue see more controller end */
+
+/* Safe upload dropdown direction start */
+function setupUploadDropdownDirection() {
+  const button =
+    document.getElementById('uploadMenuButton') ||
+    document.querySelector('.upload-menu-button');
+
+  const menu =
+    document.getElementById('uploadMenu') ||
+    document.querySelector('.upload-menu');
+
+  if (!button || !menu) return;
+
+  const holder = button.closest('.upload-split') || menu.parentElement;
+  if (!holder) return;
+
+  function updateDirection() {
+    const isOpen = !menu.hidden && getComputedStyle(menu).display !== 'none';
+    if (!isOpen) return;
+
+    const rect = button.getBoundingClientRect();
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const spaceAbove = rect.top;
+
+    // Open upward only when there is clearly not enough room below.
+    const shouldDropUp = spaceBelow < 260 && spaceAbove > spaceBelow;
+
+    holder.classList.toggle('drop-up', shouldDropUp);
+    holder.classList.toggle('drop-down', !shouldDropUp);
+  }
+
+  button.addEventListener('click', () => {
+    window.setTimeout(updateDirection, 0);
+  });
+
+  window.addEventListener('scroll', updateDirection, { passive: true });
+  window.addEventListener('resize', updateDirection);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupUploadDropdownDirection);
+} else {
+  setupUploadDropdownDirection();
+}
+/* Safe upload dropdown direction end */
 

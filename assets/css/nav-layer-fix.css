@@ -1,0 +1,35 @@
+﻿/* Nav layer always on top */
+.site-header,
+.header,
+.topbar,
+.navbar,
+.main-nav {
+  position: relative !important;
+  z-index: 10000 !important;
+  isolation: isolate !important;
+}
+
+/* Keep header surface above dropdowns */
+.topbar {
+  background: color-mix(in srgb, var(--panel-strong) 92%, transparent) !important;
+  backdrop-filter: blur(18px) !important;
+}
+
+/* Upload dropdown should stay below nav layer */
+.upload-menu {
+  z-index: 500 !important;
+}
+
+/* Format picker and full modals can still be above page when opened */
+.backdrop,
+#pickerBackdrop,
+#toolsBackdrop,
+#optionsBackdrop {
+  z-index: 9000 !important;
+}
+
+/* But nav remains above normal dropdowns */
+.site-header .topbar,
+header .topbar {
+  z-index: 10001 !important;
+}
