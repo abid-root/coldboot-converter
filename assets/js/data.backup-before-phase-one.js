@@ -101,15 +101,15 @@ export const formats = {
 };
 
 export const conversions = {
-  png: ['webp', 'jpg', 'pdf'],
-  jpg: ['webp', 'png', 'pdf'],
-  jpeg: ['webp', 'png', 'pdf'],
-  webp: ['png', 'jpg', 'pdf'],
+  png: ['webp', 'jpg'],
+  jpg: ['webp', 'png'],
+  jpeg: ['webp', 'png'],
+  webp: ['png', 'jpg'],
   avif: ['jpg', 'png', 'webp'],
   heic: ['jpg', 'png', 'webp', 'pdf'],
   svg: ['png', 'jpg', 'webp', 'pdf'],
   gif: ['mp4', 'webp', 'png'],
-  bmp: ['png', 'jpg', 'webp', 'pdf'],
+  bmp: ['png', 'jpg', 'webp'],
   tiff: ['jpg', 'png', 'pdf'],
   ico: ['png', 'jpg'],
 
@@ -178,6 +178,5 @@ export const formatNotes = {
   docx: 'A modern Word document format used for editable text documents with formatting.',
   pptx: 'A modern presentation format used for slides, pitch decks, and teaching materials.'
 };
-
 
 

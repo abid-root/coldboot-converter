@@ -7,16 +7,19 @@ const browserImageOutputs = {
   webp: { mime: 'image/webp', extension: 'webp' }
 };
 
-const browserImageInputs = new Set(['png', 'jpg', 'jpeg', 'webp']);
+const browserImageInputs = new Set(['png', 'jpg', 'jpeg', 'webp', 'svg', 'bmp']);
+const browserPdfInputs = new Set(['png', 'jpg', 'jpeg', 'webp', 'svg', 'bmp']);
 
 export function canConvertInBrowser(item) {
-  return browserImageInputs.has(item.from) && Boolean(browserImageOutputs[item.to]);
+  if (browserImageInputs.has(item.from) && Boolean(browserImageOutputs[item.to])) return true;
+  if (browserPdfInputs.has(item.from) && item.to === 'pdf') return true;
+  return false;
 }
 
 export function conversionUnavailableMessage(item) {
   const from = formats[item.from]?.label || item.from.toUpperCase();
   const to = formats[item.to]?.label || item.to.toUpperCase();
-  return `${from} to ${to} needs the conversion engine. Image PNG, JPG, and WEBP conversion works in this browser now.`;
+  return `${from} to ${to} needs a later conversion engine. Browser support now: PNG, JPG, JPEG, WEBP, SVG, and BMP to PNG/JPG/WEBP/PDF.`;
 }
 
 export async function convertImageItem(item) {
@@ -25,8 +28,13 @@ export async function convertImageItem(item) {
   }
 
   const image = await loadBitmap(item.file);
-  const output = browserImageOutputs[item.to];
   const dimensions = outputDimensions(image.width, image.height, item.settings);
+
+  if (!dimensions.width || !dimensions.height) {
+    closeBitmap(image);
+    throw new Error('This image does not have a readable size.');
+  }
+
   const canvas = document.createElement('canvas');
   canvas.width = dimensions.width;
   canvas.height = dimensions.height;
@@ -34,13 +42,26 @@ export async function convertImageItem(item) {
   const context = canvas.getContext('2d');
   if (!context) throw new Error('This browser could not prepare an image canvas.');
 
-  if (output.mime === 'image/jpeg') {
+  const output = browserImageOutputs[item.to];
+  const needsWhiteBackground = item.to === 'pdf' || output?.mime === 'image/jpeg';
+
+  if (needsWhiteBackground) {
     context.fillStyle = '#ffffff';
     context.fillRect(0, 0, canvas.width, canvas.height);
   }
 
   context.drawImage(image, 0, 0, canvas.width, canvas.height);
   closeBitmap(image);
+
+  if (item.to === 'pdf') {
+    const quality = qualityFromSettings(item.settings);
+    const jpegBlob = await canvasToBlob(canvas, 'image/jpeg', quality);
+    const jpegBytes = new Uint8Array(await jpegBlob.arrayBuffer());
+    const blob = buildImagePdf(jpegBytes, canvas.width, canvas.height);
+    const name = outputName(item, 'pdf');
+
+    return { blob, name, mime: 'application/pdf' };
+  }
 
   const blob = await canvasToBlob(canvas, output.mime, qualityFromSettings(item.settings));
   const name = outputName(item, output.extension);
@@ -55,7 +76,11 @@ function outputDimensions(width, height, settings = {}) {
   if (!requestedWidth && !requestedHeight) return { width, height };
   if (requestedWidth && requestedHeight) return { width: requestedWidth, height: requestedHeight };
   if (requestedWidth) return { width: requestedWidth, height: Math.max(1, Math.round((height / width) * requestedWidth)) };
-  return { width: Math.max(1, Math.round((width / height) * requestedHeight)), height: requestedHeight };
+
+  return {
+    width: Math.max(1, Math.round((width / height) * requestedHeight)),
+    height: requestedHeight
+  };
 }
 
 function positiveInteger(value) {
@@ -71,6 +96,7 @@ function qualityFromSettings(settings = {}) {
 
 function outputName(item, extension) {
   const rawName = (item.settings?.rename || stripExtension(item.name) || 'converted').trim();
+
   const safeName = stripExtension(rawName)
     .replace(/[\\/:*?"<>|]+/g, '-')
     .replace(/\s+/g, ' ')
@@ -97,6 +123,7 @@ async function loadBitmap(file) {
 
 async function loadImageElement(file) {
   const url = URL.createObjectURL(file);
+
   try {
     const image = await new Promise((resolve, reject) => {
       const element = new Image();
@@ -104,6 +131,7 @@ async function loadImageElement(file) {
       element.onerror = () => reject(new Error('This image could not be loaded.'));
       element.src = url;
     });
+
     return image;
   } finally {
     URL.revokeObjectURL(url);
@@ -118,9 +146,78 @@ function canvasToBlob(canvas, mime, quality) {
   return new Promise((resolve, reject) => {
     canvas.toBlob(blob => {
       if (blob) resolve(blob);
-      else reject(new Error('This browser could not export the converted image.'));
+      else reject(new Error('This browser could not export the converted file.'));
     }, mime, quality);
   });
 }
 
+function buildImagePdf(imageBytes, imageWidth, imageHeight) {
+  const encoder = new TextEncoder();
+  const chunks = [];
+  const offsets = [0];
+  let offset = 0;
 
+  function pushString(value) {
+    const bytes = encoder.encode(value);
+    chunks.push(bytes);
+    offset += bytes.length;
+  }
+
+  function pushBytes(bytes) {
+    chunks.push(bytes);
+    offset += bytes.length;
+  }
+
+  function beginObject(number) {
+    offsets[number] = offset;
+    pushString(`${number} 0 obj\n`);
+  }
+
+  const page = pdfPageSize(imageWidth, imageHeight);
+  const content = `q\n${formatNumber(page.width)} 0 0 ${formatNumber(page.height)} 0 0 cm\n/Im0 Do\nQ\n`;
+
+  pushString('%PDF-1.4\n%\xE2\xE3\xCF\xD3\n');
+
+  beginObject(1);
+  pushString('<< /Type /Catalog /Pages 2 0 R >>\nendobj\n');
+
+  beginObject(2);
+  pushString('<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n');
+
+  beginObject(3);
+  pushString(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${formatNumber(page.width)} ${formatNumber(page.height)}] /Resources << /XObject << /Im0 4 0 R >> >> /Contents 5 0 R >>\nendobj\n`);
+
+  beginObject(4);
+  pushString(`<< /Type /XObject /Subtype /Image /Width ${imageWidth} /Height ${imageHeight} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${imageBytes.length} >>\nstream\n`);
+  pushBytes(imageBytes);
+  pushString('\nendstream\nendobj\n');
+
+  beginObject(5);
+  pushString(`<< /Length ${encoder.encode(content).length} >>\nstream\n${content}endstream\nendobj\n`);
+
+  const xrefOffset = offset;
+  pushString('xref\n0 6\n');
+  pushString('0000000000 65535 f \n');
+
+  for (let i = 1; i <= 5; i++) {
+    pushString(`${String(offsets[i]).padStart(10, '0')} 00000 n \n`);
+  }
+
+  pushString(`trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF`);
+
+  return new Blob(chunks, { type: 'application/pdf' });
+}
+
+function pdfPageSize(width, height) {
+  const maxSide = 1440;
+  const scale = Math.min(1, maxSide / Math.max(width, height));
+
+  return {
+    width: Math.max(1, Math.round(width * scale)),
+    height: Math.max(1, Math.round(height * scale))
+  };
+}
+
+function formatNumber(value) {
+  return Number(value).toFixed(2).replace(/\.00$/, '');
+}
