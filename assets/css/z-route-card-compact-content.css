@@ -1,0 +1,93 @@
+﻿/* Final: stop From/To card text clipping by compacting content */
+
+#fromCard,
+#toCard {
+  overflow: hidden !important;
+}
+
+/* BEFORE upload: fit content inside card */
+#fromCard .format-eyebrow,
+#toCard .format-eyebrow {
+  margin: 0 0 8px !important;
+  font-size: 0.62rem !important;
+  line-height: 1 !important;
+}
+
+#fromCard .format-icon,
+#toCard .format-icon {
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  min-height: 40px !important;
+  margin: 0 0 9px !important;
+  border-radius: 13px !important;
+}
+
+#fromCard strong,
+#toCard strong {
+  display: block !important;
+  margin: 0 0 5px !important;
+  font-size: 1.22rem !important;
+  line-height: 1.05 !important;
+  font-weight: 950 !important;
+  white-space: nowrap !important;
+}
+
+#fromCard small,
+#toCard small {
+  display: block !important;
+  margin: 0 !important;
+  width: 112px !important;
+  max-width: 112px !important;
+  min-height: 0 !important;
+  max-height: 34px !important;
+  overflow: hidden !important;
+  font-size: 0.72rem !important;
+  line-height: 1.2 !important;
+  white-space: normal !important;
+}
+
+#fromCard .format-chevron,
+#toCard .format-chevron {
+  right: 15px !important;
+  bottom: 17px !important;
+}
+
+/* AFTER upload / queue mode: even more compact */
+body:has(#queuePanel:not([hidden])) #fromCard .format-eyebrow,
+body:has(#queuePanel:not([hidden])) #toCard .format-eyebrow {
+  margin-bottom: 6px !important;
+  font-size: 0.56rem !important;
+}
+
+body:has(#queuePanel:not([hidden])) #fromCard .format-icon,
+body:has(#queuePanel:not([hidden])) #toCard .format-icon {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  margin-bottom: 7px !important;
+  border-radius: 11px !important;
+}
+
+body:has(#queuePanel:not([hidden])) #fromCard strong,
+body:has(#queuePanel:not([hidden])) #toCard strong {
+  margin-bottom: 4px !important;
+  font-size: 1.02rem !important;
+  line-height: 1 !important;
+}
+
+body:has(#queuePanel:not([hidden])) #fromCard small,
+body:has(#queuePanel:not([hidden])) #toCard small {
+  width: 96px !important;
+  max-width: 96px !important;
+  max-height: 28px !important;
+  font-size: 0.66rem !important;
+  line-height: 1.15 !important;
+}
+
+body:has(#queuePanel:not([hidden])) #fromCard .format-chevron,
+body:has(#queuePanel:not([hidden])) #toCard .format-chevron {
+  right: 13px !important;
+  bottom: 14px !important;
+}

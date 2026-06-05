@@ -1,0 +1,66 @@
+﻿/* Route card subtitle no-cut fix */
+
+/* Keep subtitle clean in one line */
+#fromCard small,
+#toCard small {
+  display: block !important;
+  width: calc(100% - 26px) !important;
+  max-width: calc(100% - 26px) !important;
+
+  min-height: 18px !important;
+  max-height: 18px !important;
+
+  font-size: 0.72rem !important;
+  line-height: 18px !important;
+  font-weight: 700 !important;
+
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+
+  margin: 0 !important;
+  color: rgba(235,235,245,0.64) !important;
+}
+
+/* Give title/subtitle a little better position */
+#fromCard strong,
+#toCard strong {
+  margin-bottom: 6px !important;
+}
+
+/* Keep chevron aligned with subtitle */
+#fromCard .format-chevron,
+#toCard .format-chevron {
+  right: 16px !important;
+  bottom: 20px !important;
+}
+
+/* Queue mode compact */
+body:has(#queuePanel:not([hidden])) #fromCard small,
+body:has(#queuePanel:not([hidden])) #toCard small {
+  width: calc(100% - 24px) !important;
+  max-width: calc(100% - 24px) !important;
+
+  min-height: 16px !important;
+  max-height: 16px !important;
+
+  font-size: 0.66rem !important;
+  line-height: 16px !important;
+}
+
+body:has(#queuePanel:not([hidden])) #fromCard strong,
+body:has(#queuePanel:not([hidden])) #toCard strong {
+  margin-bottom: 4px !important;
+}
+
+body:has(#queuePanel:not([hidden])) #fromCard .format-chevron,
+body:has(#queuePanel:not([hidden])) #toCard .format-chevron {
+  right: 13px !important;
+  bottom: 15px !important;
+}
+
+/* Light theme */
+html[data-theme="light"] #fromCard small,
+html[data-theme="light"] #toCard small {
+  color: rgba(23,25,35,0.62) !important;
+}
