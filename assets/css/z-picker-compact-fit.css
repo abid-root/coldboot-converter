@@ -1,0 +1,171 @@
+﻿/* Compact picker panel only.
+   No JS/data/conversion/nav changes. */
+
+#formatPicker {
+  width: min(620px, calc(100vw - 38px)) !important;
+  max-width: 620px !important;
+  max-height: none !important;
+  border-radius: 22px !important;
+  overflow: hidden !important;
+}
+
+/* softer smaller overlay */
+#pickerBackdrop {
+  background: rgba(4, 5, 10, 0.46) !important;
+  backdrop-filter: blur(3px) !important;
+  -webkit-backdrop-filter: blur(3px) !important;
+}
+
+/* header smaller */
+#formatPicker .modal-head {
+  padding: 14px 16px 10px !important;
+}
+
+#formatPicker .modal-head h2 {
+  font-size: 1.18rem !important;
+  line-height: 1.05 !important;
+  margin: 0 0 4px !important;
+}
+
+#formatPicker .modal-head p {
+  font-size: 0.8rem !important;
+  line-height: 1.25 !important;
+  margin: 0 !important;
+  opacity: 0.7 !important;
+}
+
+#formatPicker .close-button {
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 12px !important;
+  font-size: 1.2rem !important;
+}
+
+/* search smaller */
+#formatPicker .picker-search {
+  padding: 0 16px 10px !important;
+}
+
+#formatPicker .picker-search input,
+#formatPicker #pickerSearch {
+  height: 40px !important;
+  min-height: 40px !important;
+  border-radius: 13px !important;
+  padding: 0 13px !important;
+  font-size: 0.84rem !important;
+}
+
+/* remove the left-side empty gap completely */
+#formatPicker .picker-body {
+  display: block !important;
+  grid-template-columns: none !important;
+  gap: 0 !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+  padding: 0 16px 16px !important;
+}
+
+#formatPicker .picker-categories {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
+}
+
+/* format grid: 9 items fit without scroll */
+#formatPicker .picker-formats {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 8px !important;
+  width: 100% !important;
+  max-height: none !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* small cute format cards */
+#formatPicker .format-chip {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  min-height: 58px !important;
+  height: 58px !important;
+
+  border-radius: 14px !important;
+  padding: 8px 9px !important;
+
+  display: grid !important;
+  grid-template-columns: 32px minmax(0, 1fr) !important;
+  grid-template-rows: auto auto !important;
+  align-items: center !important;
+  column-gap: 8px !important;
+  row-gap: 1px !important;
+}
+
+#formatPicker .format-chip span {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  min-height: 30px !important;
+  border-radius: 10px !important;
+  grid-row: 1 / span 2 !important;
+}
+
+#formatPicker .format-chip svg {
+  width: 15px !important;
+  height: 15px !important;
+}
+
+#formatPicker .format-chip strong {
+  font-size: 0.82rem !important;
+  line-height: 1.05 !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+#formatPicker .format-chip small {
+  display: block !important;
+  font-size: 0.58rem !important;
+  line-height: 1.1 !important;
+  opacity: 0.6 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+#formatPicker .format-chip.active {
+  transform: none !important;
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.16) !important;
+}
+
+/* mobile */
+@media (max-width: 620px) {
+  #formatPicker {
+    width: min(94vw, 460px) !important;
+  }
+
+  #formatPicker .picker-formats {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  #formatPicker .format-chip {
+    height: 56px !important;
+    min-height: 56px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  #formatPicker .picker-formats {
+    grid-template-columns: 1fr !important;
+  }
+}
