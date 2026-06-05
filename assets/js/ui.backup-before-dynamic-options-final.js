@@ -264,161 +264,47 @@ function optionsForCategory(category, item) {
   const widthValue = escapeHtml(item.settings.width || '');
   const heightValue = escapeHtml(item.settings.height || '');
   const qualityValue = String(item.settings.quality || '85');
-  const pageSizeValue = String(item.settings.pageSize || 'auto');
-  const orientationValue = String(item.settings.orientation || 'auto');
-  const marginValue = String(item.settings.margin || 'none');
-  const output = item.to;
   const outputLabel = escapeHtml(formats[item.to]?.label || 'Output');
-  const outputCategory = formats[item.to]?.category || category || 'image';
 
-  function selected(current, value) {
-    return current === value ? 'selected' : '';
-  }
-
-  function renameField() {
-    return `
-      <label class="field full">
-        <span>Rename file</span>
-        <input name="rename" placeholder="${baseName}" value="${renameValue}">
-        <small>Leave empty to keep original name.</small>
-      </label>
-    `;
-  }
-
-  function widthField() {
-    return `
-      <label class="field">
-        <span>Width</span>
-        <input name="width" type="number" min="1" placeholder="Auto" value="${widthValue}">
-        <small>Resize width in pixels.</small>
-      </label>
-    `;
-  }
-
-  function heightField() {
-    return `
-      <label class="field">
-        <span>Height</span>
-        <input name="height" type="number" min="1" placeholder="Auto" value="${heightValue}">
-        <small>Resize height in pixels.</small>
-      </label>
-    `;
-  }
-
-  function qualityField(label = `${outputLabel} quality`) {
-    return `
-      <label class="field">
-        <span>Quality</span>
-        <select name="quality" class="quality-select">
-          <option value="100" ${selected(qualityValue, '100')}>100% — Best</option>
-          <option value="85" ${selected(qualityValue, '85')}>85% — Recommended</option>
-          <option value="60" ${selected(qualityValue, '60')}>60% — Smaller</option>
-          <option value="30" ${selected(qualityValue, '30')}>30% — Max compression</option>
-        </select>
-        <small>${escapeHtml(label)}.</small>
-      </label>
-    `;
-  }
-
-  function removeBackgroundLater() {
-    return `
-      <div class="field future-field">
-        <span>Remove background</span>
-        <div class="future-pill">Coming later</div>
-        <small>For clean cutouts later.</small>
-      </div>
-    `;
-  }
-
-  function futureOptionsNote(typeLabel) {
-    return `
-      <div class="field future-field">
-        <span>${escapeHtml(typeLabel)} options</span>
-        <div class="future-pill">Coming later</div>
-        <small>Advanced settings will appear when this engine is added.</small>
-      </div>
-    `;
-  }
-
-  if (output === 'pdf') {
-    return `
-      <label class="field">
-        <span>Page size</span>
-        <select name="pageSize" class="quality-select">
-          <option value="auto" ${selected(pageSizeValue, 'auto')}>Auto — image size</option>
-          <option value="a4" ${selected(pageSizeValue, 'a4')}>A4</option>
-          <option value="letter" ${selected(pageSizeValue, 'letter')}>Letter</option>
-        </select>
-        <small>PDF page format.</small>
-      </label>
-
-      <label class="field">
-        <span>Orientation</span>
-        <select name="orientation" class="quality-select">
-          <option value="auto" ${selected(orientationValue, 'auto')}>Auto</option>
-          <option value="portrait" ${selected(orientationValue, 'portrait')}>Portrait</option>
-          <option value="landscape" ${selected(orientationValue, 'landscape')}>Landscape</option>
-        </select>
-        <small>PDF page direction.</small>
-      </label>
-
-      <label class="field">
-        <span>Margin</span>
-        <select name="margin" class="quality-select">
-          <option value="none" ${selected(marginValue, 'none')}>None</option>
-          <option value="small" ${selected(marginValue, 'small')}>Small</option>
-        </select>
-        <small>Space around the image.</small>
-      </label>
-
-      ${qualityField('Image quality inside PDF')}
-
-      ${renameField()}
-    `;
-  }
-
-  if (['jpg', 'jpeg', 'webp'].includes(output)) {
-    return `
-      ${widthField()}
-      ${heightField()}
-      ${qualityField()}
-      ${removeBackgroundLater()}
-      ${renameField()}
-    `;
-  }
-
-  if (output === 'png') {
-    return `
-      ${widthField()}
-      ${heightField()}
-      ${removeBackgroundLater()}
-      ${renameField()}
-    `;
-  }
-
-  if (outputCategory === 'video') {
-    return `
-      ${futureOptionsNote('Video')}
-      ${renameField()}
-    `;
-  }
-
-  if (outputCategory === 'audio') {
-    return `
-      ${futureOptionsNote('Audio')}
-      ${renameField()}
-    `;
-  }
-
-  if (['document', 'presentation', 'archive', 'ebook'].includes(outputCategory)) {
-    return `
-      ${futureOptionsNote(formats[item.to]?.label || 'File')}
-      ${renameField()}
-    `;
+  function selected(value) {
+    return qualityValue === value ? 'selected' : '';
   }
 
   return `
-    ${renameField()}
+    <label class="field">
+      <span>Width</span>
+      <input name="width" type="number" min="1" placeholder="Auto" value="${widthValue}">
+      <small>Resize width in pixels.</small>
+    </label>
+
+    <label class="field">
+      <span>Height</span>
+      <input name="height" type="number" min="1" placeholder="Auto" value="${heightValue}">
+      <small>Resize height in pixels.</small>
+    </label>
+
+    <label class="field">
+      <span>Quality</span>
+      <select name="quality" class="quality-select">
+        <option value="100" ${selected('100')}>100% — Best</option>
+        <option value="85" ${selected('85')}>85% — Recommended</option>
+        <option value="60" ${selected('60')}>60% — Smaller</option>
+        <option value="30" ${selected('30')}>30% — Max compression</option>
+      </select>
+      <small>${outputLabel} quality for JPG and WEBP.</small>
+    </label>
+
+    <div class="field future-field">
+      <span>Remove background</span>
+      <div class="future-pill">Coming later</div>
+      <small>For clean cutouts later.</small>
+    </div>
+
+    <label class="field full">
+      <span>Rename file</span>
+      <input name="rename" placeholder="${baseName}" value="${renameValue}">
+      <small>Leave empty to keep original name.</small>
+    </label>
   `;
 }
 
@@ -478,7 +364,6 @@ function escapeHtml(value) {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
 }
-
 
 
 

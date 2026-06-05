@@ -57,7 +57,7 @@ export async function convertImageItem(item) {
     const quality = qualityFromSettings(item.settings);
     const jpegBlob = await canvasToBlob(canvas, 'image/jpeg', quality);
     const jpegBytes = new Uint8Array(await jpegBlob.arrayBuffer());
-    const blob = buildImagePdf(jpegBytes, canvas.width, canvas.height, item.settings);
+    const blob = buildImagePdf(jpegBytes, canvas.width, canvas.height);
     const name = outputName(item, 'pdf');
 
     return { blob, name, mime: 'application/pdf' };
@@ -151,7 +151,7 @@ function canvasToBlob(canvas, mime, quality) {
   });
 }
 
-function buildImagePdf(imageBytes, imageWidth, imageHeight, settings = {}) {
+function buildImagePdf(imageBytes, imageWidth, imageHeight) {
   const encoder = new TextEncoder();
   const chunks = [];
   const offsets = [0];
@@ -173,14 +173,8 @@ function buildImagePdf(imageBytes, imageWidth, imageHeight, settings = {}) {
     pushString(`${number} 0 obj\n`);
   }
 
-  const layout = pdfLayout(imageWidth, imageHeight, settings);
-  const content = [
-    'q',
-    `${formatNumber(layout.drawWidth)} 0 0 ${formatNumber(layout.drawHeight)} ${formatNumber(layout.x)} ${formatNumber(layout.y)} cm`,
-    '/Im0 Do',
-    'Q',
-    ''
-  ].join('\n');
+  const page = pdfPageSize(imageWidth, imageHeight);
+  const content = `q\n${formatNumber(page.width)} 0 0 ${formatNumber(page.height)} 0 0 cm\n/Im0 Do\nQ\n`;
 
   pushString('%PDF-1.4\n%\xE2\xE3\xCF\xD3\n');
 
@@ -191,7 +185,7 @@ function buildImagePdf(imageBytes, imageWidth, imageHeight, settings = {}) {
   pushString('<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n');
 
   beginObject(3);
-  pushString(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${formatNumber(layout.pageWidth)} ${formatNumber(layout.pageHeight)}] /Resources << /XObject << /Im0 4 0 R >> >> /Contents 5 0 R >>\nendobj\n`);
+  pushString(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${formatNumber(page.width)} ${formatNumber(page.height)}] /Resources << /XObject << /Im0 4 0 R >> >> /Contents 5 0 R >>\nendobj\n`);
 
   beginObject(4);
   pushString(`<< /Type /XObject /Subtype /Image /Width ${imageWidth} /Height ${imageHeight} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${imageBytes.length} >>\nstream\n`);
@@ -214,72 +208,6 @@ function buildImagePdf(imageBytes, imageWidth, imageHeight, settings = {}) {
   return new Blob(chunks, { type: 'application/pdf' });
 }
 
-function pdfLayout(imageWidth, imageHeight, settings = {}) {
-  const pageSize = String(settings.pageSize || 'auto');
-  const orientation = String(settings.orientation || 'auto');
-  const marginMode = String(settings.margin || 'none');
-
-  let page = basePdfPageSize(pageSize, imageWidth, imageHeight);
-
-  if (orientation === 'portrait' && page.width > page.height) {
-    page = { width: page.height, height: page.width };
-  }
-
-  if (orientation === 'landscape' && page.height > page.width) {
-    page = { width: page.height, height: page.width };
-  }
-
-  if (orientation === 'auto' && pageSize !== 'auto') {
-    const imageIsLandscape = imageWidth > imageHeight;
-    const pageIsLandscape = page.width > page.height;
-
-    if (imageIsLandscape !== pageIsLandscape) {
-      page = { width: page.height, height: page.width };
-    }
-  }
-
-  const margin = pdfMargin(marginMode);
-  const availableWidth = Math.max(1, page.width - margin * 2);
-  const availableHeight = Math.max(1, page.height - margin * 2);
-  const fitted = fitInside(imageWidth, imageHeight, availableWidth, availableHeight);
-
-  return {
-    pageWidth: page.width,
-    pageHeight: page.height,
-    drawWidth: fitted.width,
-    drawHeight: fitted.height,
-    x: margin + (availableWidth - fitted.width) / 2,
-    y: margin + (availableHeight - fitted.height) / 2
-  };
-}
-
-function basePdfPageSize(pageSize, imageWidth, imageHeight) {
-  if (pageSize === 'a4') return { width: 595.28, height: 841.89 };
-  if (pageSize === 'letter') return { width: 612, height: 792 };
-
-  const maxSide = 1440;
-  const scale = Math.min(1, maxSide / Math.max(imageWidth, imageHeight));
-
-  return {
-    width: Math.max(1, Math.round(imageWidth * scale)),
-    height: Math.max(1, Math.round(imageHeight * scale))
-  };
-}
-
-function pdfMargin(mode) {
-  if (mode === 'small') return 28;
-  return 0;
-}
-
-function fitInside(width, height, maxWidth, maxHeight) {
-  const scale = Math.min(maxWidth / width, maxHeight / height);
-
-  return {
-    width: Math.max(1, width * scale),
-    height: Math.max(1, height * scale)
-  };
-}
-
 function pdfPageSize(width, height) {
   const maxSide = 1440;
   const scale = Math.min(1, maxSide / Math.max(width, height));
@@ -293,4 +221,3 @@ function pdfPageSize(width, height) {
 function formatNumber(value) {
   return Number(value).toFixed(2).replace(/\.00$/, '');
 }
-
