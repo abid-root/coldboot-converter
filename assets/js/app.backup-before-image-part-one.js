@@ -752,15 +752,12 @@ if (document.readyState === 'loading') {
   window.__flowSyncFinalFormatPickerStateSync = true;
 
   const browserReadyImageOutputs = {
-    png: ['webp', 'jpg', 'pdf', 'ico'],
-    jpg: ['webp', 'png', 'pdf', 'ico'],
-    jpeg: ['webp', 'png', 'pdf', 'ico'],
-    webp: ['png', 'jpg', 'pdf', 'ico'],
-    avif: ['png', 'jpg', 'webp', 'pdf', 'ico'],
-    svg: ['png', 'jpg', 'webp', 'pdf', 'ico'],
-    gif: ['png', 'jpg', 'webp', 'pdf', 'ico'],
-    bmp: ['png', 'jpg', 'webp', 'pdf', 'ico'],
-    ico: ['png', 'jpg', 'webp', 'pdf']
+    png: ['webp', 'jpg', 'pdf'],
+    jpg: ['webp', 'png', 'pdf'],
+    jpeg: ['webp', 'png', 'pdf'],
+    webp: ['png', 'jpg', 'pdf'],
+    svg: ['png', 'jpg', 'webp', 'pdf'],
+    bmp: ['png', 'jpg', 'webp', 'pdf']
   };
 
   function categoryForFormat(format) {
@@ -1063,7 +1060,6 @@ function showBottomToast(message) {
 ensureZipButton();
 setupAddMoreLimitToast();
 /* ZIP download and toast final end */
-
 
 
 

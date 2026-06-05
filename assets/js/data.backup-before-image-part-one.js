@@ -101,17 +101,17 @@ export const formats = {
 };
 
 export const conversions = {
-  png: ['webp', 'jpg', 'pdf', 'ico'],
-  jpg: ['webp', 'png', 'pdf', 'ico'],
-  jpeg: ['webp', 'png', 'pdf', 'ico'],
-  webp: ['png', 'jpg', 'pdf', 'ico'],
-  avif: ['png', 'jpg', 'webp', 'pdf', 'ico'],
+  png: ['webp', 'jpg', 'pdf'],
+  jpg: ['webp', 'png', 'pdf'],
+  jpeg: ['webp', 'png', 'pdf'],
+  webp: ['png', 'jpg', 'pdf'],
+  avif: ['jpg', 'png', 'webp'],
   heic: ['jpg', 'png', 'webp', 'pdf'],
-  svg: ['png', 'jpg', 'webp', 'pdf', 'ico'],
-  gif: ['png', 'jpg', 'webp', 'pdf', 'ico'],
-  bmp: ['png', 'jpg', 'webp', 'pdf', 'ico'],
+  svg: ['png', 'jpg', 'webp', 'pdf'],
+  gif: ['mp4', 'webp', 'png'],
+  bmp: ['png', 'jpg', 'webp', 'pdf'],
   tiff: ['jpg', 'png', 'pdf'],
-  ico: ['png', 'jpg', 'webp', 'pdf'],
+  ico: ['png', 'jpg'],
 
   mp4: ['mp3', 'gif', 'webm', 'mov', 'm4a'],
   mov: ['mp4', 'webm', 'mp3'],
@@ -178,7 +178,6 @@ export const formatNotes = {
   docx: 'A modern Word document format used for editable text documents with formatting.',
   pptx: 'A modern presentation format used for slides, pitch decks, and teaching materials.'
 };
-
 
 
 

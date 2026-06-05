@@ -1,39 +1,25 @@
 ﻿import { formats } from './data.js';
 
-const browserRasterOutputs = {
+const browserImageOutputs = {
   png: { mime: 'image/png', extension: 'png' },
   jpg: { mime: 'image/jpeg', extension: 'jpg' },
   jpeg: { mime: 'image/jpeg', extension: 'jpg' },
   webp: { mime: 'image/webp', extension: 'webp' }
 };
 
-const browserImageInputs = new Set([
-  'png',
-  'jpg',
-  'jpeg',
-  'webp',
-  'svg',
-  'bmp',
-  'avif',
-  'gif',
-  'ico'
-]);
+const browserImageInputs = new Set(['png', 'jpg', 'jpeg', 'webp', 'svg', 'bmp']);
+const browserPdfInputs = new Set(['png', 'jpg', 'jpeg', 'webp', 'svg', 'bmp']);
 
 export function canConvertInBrowser(item) {
-  if (!browserImageInputs.has(item.from)) return false;
-
-  if (Boolean(browserRasterOutputs[item.to])) return true;
-  if (item.to === 'pdf') return true;
-  if (item.to === 'ico') return true;
-
+  if (browserImageInputs.has(item.from) && Boolean(browserImageOutputs[item.to])) return true;
+  if (browserPdfInputs.has(item.from) && item.to === 'pdf') return true;
   return false;
 }
 
 export function conversionUnavailableMessage(item) {
   const from = formats[item.from]?.label || item.from.toUpperCase();
   const to = formats[item.to]?.label || item.to.toUpperCase();
-
-  return `${from} to ${to} needs a later engine. Browser image engine now supports PNG, JPG, WEBP, SVG, BMP, AVIF, GIF first frame, and ICO.`;
+  return `${from} to ${to} needs a later conversion engine. Browser support now: PNG, JPG, JPEG, WEBP, SVG, and BMP to PNG/JPG/WEBP/PDF.`;
 }
 
 export async function convertImageItem(item) {
@@ -56,7 +42,7 @@ export async function convertImageItem(item) {
   const context = canvas.getContext('2d');
   if (!context) throw new Error('This browser could not prepare an image canvas.');
 
-  const output = browserRasterOutputs[item.to];
+  const output = browserImageOutputs[item.to];
   const needsWhiteBackground = item.to === 'pdf' || output?.mime === 'image/jpeg';
 
   if (needsWhiteBackground) {
@@ -77,16 +63,6 @@ export async function convertImageItem(item) {
     return { blob, name, mime: 'application/pdf' };
   }
 
-  if (item.to === 'ico') {
-    const iconCanvas = renderIconCanvas(canvas, item.settings);
-    const pngBlob = await canvasToBlob(iconCanvas, 'image/png', 1);
-    const pngBytes = new Uint8Array(await pngBlob.arrayBuffer());
-    const blob = buildIcoFromPng(pngBytes, iconCanvas.width, iconCanvas.height);
-    const name = outputName(item, 'ico');
-
-    return { blob, name, mime: 'image/x-icon' };
-  }
-
   const blob = await canvasToBlob(canvas, output.mime, qualityFromSettings(item.settings));
   const name = outputName(item, output.extension);
 
@@ -98,20 +74,8 @@ function outputDimensions(width, height, settings = {}) {
   const requestedHeight = positiveInteger(settings.height);
 
   if (!requestedWidth && !requestedHeight) return { width, height };
-
-  if (requestedWidth && requestedHeight) {
-    return {
-      width: requestedWidth,
-      height: requestedHeight
-    };
-  }
-
-  if (requestedWidth) {
-    return {
-      width: requestedWidth,
-      height: Math.max(1, Math.round((height / width) * requestedWidth))
-    };
-  }
+  if (requestedWidth && requestedHeight) return { width: requestedWidth, height: requestedHeight };
+  if (requestedWidth) return { width: requestedWidth, height: Math.max(1, Math.round((height / width) * requestedWidth)) };
 
   return {
     width: Math.max(1, Math.round((width / height) * requestedHeight)),
@@ -164,7 +128,7 @@ async function loadImageElement(file) {
     const image = await new Promise((resolve, reject) => {
       const element = new Image();
       element.onload = () => resolve(element);
-      element.onerror = () => reject(new Error('This file could not be loaded as an image in this browser.'));
+      element.onerror = () => reject(new Error('This image could not be loaded.'));
       element.src = url;
     });
 
@@ -187,62 +151,6 @@ function canvasToBlob(canvas, mime, quality) {
   });
 }
 
-/* ICO output: store a PNG image inside an .ico container */
-function renderIconCanvas(sourceCanvas, settings = {}) {
-  const requestedWidth = positiveInteger(settings.width);
-  const requestedHeight = positiveInteger(settings.height);
-
-  const size = clampIconSize(requestedWidth || requestedHeight || 256);
-  const canvas = document.createElement('canvas');
-  canvas.width = size;
-  canvas.height = size;
-
-  const context = canvas.getContext('2d');
-  if (!context) throw new Error('This browser could not prepare icon output.');
-
-  context.clearRect(0, 0, size, size);
-
-  const fitted = fitInside(sourceCanvas.width, sourceCanvas.height, size, size);
-  const x = (size - fitted.width) / 2;
-  const y = (size - fitted.height) / 2;
-
-  context.drawImage(sourceCanvas, x, y, fitted.width, fitted.height);
-
-  return canvas;
-}
-
-function clampIconSize(value) {
-  const size = Number.isFinite(value) ? value : 256;
-  return Math.min(256, Math.max(16, Math.round(size)));
-}
-
-function buildIcoFromPng(pngBytes, width, height) {
-  const headerSize = 6;
-  const directorySize = 16;
-  const imageOffset = headerSize + directorySize;
-  const bytes = new Uint8Array(imageOffset + pngBytes.length);
-  const view = new DataView(bytes.buffer);
-
-  view.setUint16(0, 0, true);
-  view.setUint16(2, 1, true);
-  view.setUint16(4, 1, true);
-
-  bytes[6] = width >= 256 ? 0 : width;
-  bytes[7] = height >= 256 ? 0 : height;
-  bytes[8] = 0;
-  bytes[9] = 0;
-
-  view.setUint16(10, 1, true);
-  view.setUint16(12, 32, true);
-  view.setUint32(14, pngBytes.length, true);
-  view.setUint32(18, imageOffset, true);
-
-  bytes.set(pngBytes, imageOffset);
-
-  return new Blob([bytes], { type: 'image/x-icon' });
-}
-
-/* PDF output */
 function buildImagePdf(imageBytes, imageWidth, imageHeight, settings = {}) {
   const encoder = new TextEncoder();
   const chunks = [];
@@ -372,6 +280,17 @@ function fitInside(width, height, maxWidth, maxHeight) {
   };
 }
 
+function pdfPageSize(width, height) {
+  const maxSide = 1440;
+  const scale = Math.min(1, maxSide / Math.max(width, height));
+
+  return {
+    width: Math.max(1, Math.round(width * scale)),
+    height: Math.max(1, Math.round(height * scale))
+  };
+}
+
 function formatNumber(value) {
   return Number(value).toFixed(2).replace(/\.00$/, '');
 }
+
