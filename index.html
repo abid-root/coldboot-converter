@@ -1,12 +1,15 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en" data-theme="dark">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>FlowSync File Converter</title>
-    <meta name="description" content="Convert image, video, audio, PDF, document, and presentation files with FlowSync.">
-    <link rel="canonical" href="/">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <meta
+      name="description"
+      content="Convert image, video, audio, PDF, document, and presentation files with FlowSync."
+    />
+    <link rel="canonical" href="/" />
+    <link rel="stylesheet" href="assets/css/main.css" />
   </head>
   <body>
     <div class="site-shell">
@@ -14,9 +17,15 @@
         <div class="container topbar">
           <a class="brand" href="" aria-label="FlowSync home">
             <span class="brand-mark" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 2.7 20.2 7.4v9.2L12 21.3 3.8 16.6V7.4L12 2.7Zm0 2.6L6.2 8.6V15.4L12 18.7l5.8-3.3V8.6L12 5.3Zm0 2.5 3.6 2.1v4.2L12 16.2l-3.6-2.1V9.9L12 7.8Z"/></svg>
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 2.7 20.2 7.4v9.2L12 21.3 3.8 16.6V7.4L12 2.7Zm0 2.6L6.2 8.6V15.4L12 18.7l5.8-3.3V8.6L12 5.3Zm0 2.5 3.6 2.1v4.2L12 16.2l-3.6-2.1V9.9L12 7.8Z"
+                />
+              </svg>
             </span>
-            <span class="brand-text"><strong>FlowSync</strong><span>file forge</span></span>
+            <span class="brand-text"
+              ><strong>FlowSync</strong><span>file forge</span></span
+            >
           </a>
           <nav class="nav-links" aria-label="Main navigation">
             <button type="button" data-open-tools>Tools</button>
@@ -26,7 +35,14 @@
             <a href="document-converter/">Documents</a>
           </nav>
           <div class="nav-actions">
-            <button class="icon-button" id="themeToggle" type="button" aria-label="Toggle theme">&#9680;</button>
+            <button
+              class="icon-button"
+              id="themeToggle"
+              type="button"
+              aria-label="Toggle theme"
+            >
+              &#9680;
+            </button>
           </div>
         </div>
       </header>
@@ -36,7 +52,10 @@
           <div class="hero-copy">
             <span class="kicker" id="pageKicker">Smart file conversion</span>
             <h1 id="pageTitle">PNG to WEBP Converter</h1>
-            <p id="pageDescription">Convert files with clean upload handling, smart output choices, and browser-based image processing.</p>
+            <p id="pageDescription">
+              Convert files with clean upload handling, smart output choices,
+              and browser-based image processing.
+            </p>
             <div class="hero-actions">
               <div class="service-switcher">
                 <button class="service-button" id="serviceButton" type="button">
@@ -46,15 +65,32 @@
                 </button>
                 <div class="service-menu" id="serviceMenu" hidden></div>
               </div>
-              <button class="secondary-button" type="button" data-open-tools>Browse all tools</button>
+              <button class="secondary-button" type="button" data-open-tools>
+                Browse all tools
+              </button>
             </div>
           </div>
 
           <div class="route-board" aria-label="Current conversion route">
             <div class="route-route">
-              <button class="format-card-button" id="fromCard" type="button"></button>
-              <button class="swap-button" id="swapButton" type="button" aria-label="Swap formats">&#8644;</button>
-              <button class="format-card-button" id="toCard" type="button"></button>
+              <button
+                class="format-card-button"
+                id="fromCard"
+                type="button"
+              ></button>
+              <button
+                class="swap-button"
+                id="swapButton"
+                type="button"
+                aria-label="Swap formats"
+              >
+                &#8644;
+              </button>
+              <button
+                class="format-card-button"
+                id="toCard"
+                type="button"
+              ></button>
             </div>
           </div>
         </section>
@@ -64,22 +100,55 @@
             <div class="upload-inner">
               <div>
                 <div class="upload-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><path d="M12 3 17.5 8.5h-3.2v5.2H9.7V8.5H6.5L12 3Zm-7 12.2h4v1.4h6v-1.4h4V20H5v-4.8Z"/></svg>
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M12 3 17.5 8.5h-3.2v5.2H9.7V8.5H6.5L12 3Zm-7 12.2h4v1.4h6v-1.4h4V20H5v-4.8Z"
+                    />
+                  </svg>
                 </div>
                 <h2>Select files to convert</h2>
-                <p>Drop files here or choose a source. Free version supports up to 10 files per batch.</p>
+                <p>
+                  Drop files here or choose a source. Free version supports up
+                  to 10 files per batch.
+                </p>
                 <div class="upload-actions upload-split">
-                  <button class="upload-main" id="chooseFileButton" type="button">Select files</button>
-                  <button class="upload-menu-button" id="uploadMenuButton" type="button" aria-label="Upload options">&#9662;</button>
+                  <button
+                    class="upload-main"
+                    id="chooseFileButton"
+                    type="button"
+                  >
+                    Select files
+                  </button>
+                  <button
+                    class="upload-menu-button"
+                    id="uploadMenuButton"
+                    type="button"
+                    aria-label="Upload options"
+                  >
+                    &#9662;
+                  </button>
                   <div class="upload-menu" id="uploadMenu" hidden>
-                    <button type="button" data-upload-option="computer">From my computer</button>
-                    <button type="button" data-upload-option="url">By URL</button>
-                    <button type="button" data-upload-option="drive">From Google Drive</button>
-                    <button type="button" data-upload-option="dropbox">From Dropbox</button>
-                    <button type="button" data-upload-option="onedrive">From OneDrive</button>
+                    <button type="button" data-upload-option="computer">
+                      From my computer
+                    </button>
+                    <button type="button" data-upload-option="url">
+                      By URL
+                    </button>
+                    <button type="button" data-upload-option="drive">
+                      From Google Drive
+                    </button>
+                    <button type="button" data-upload-option="dropbox">
+                      From Dropbox
+                    </button>
+                    <button type="button" data-upload-option="onedrive">
+                      From OneDrive
+                    </button>
                   </div>
                 </div>
-                <div class="privacy-line">Image PNG, JPG, and WEBP conversions run in your browser. Other engines can be connected next.</div>
+                <div class="privacy-line">
+                  Image PNG, JPG, and WEBP conversions run in your browser.
+                  Other engines can be connected next.
+                </div>
               </div>
             </div>
           </div>
@@ -90,15 +159,21 @@
                 <h2>Conversion queue</h2>
                 <p id="queueSummary">0 files ready</p>
               </div>
-              <button class="line-button" id="clearQueueButton" type="button">Clear queue</button>
+              <button class="line-button" id="clearQueueButton" type="button">
+                Clear queue
+              </button>
             </div>
             <div class="queue-list" id="queueList"></div>
             <div class="queue-actions">
-              <button class="secondary-button" id="addFileButton" type="button">Add more files</button>
-              <button class="primary-button" id="convertButton" type="button">Convert</button>
+              <button class="secondary-button" id="addFileButton" type="button">
+                Add more files
+              </button>
+              <button class="primary-button" id="convertButton" type="button">
+                Convert
+              </button>
             </div>
           </div>
-          <input id="fileInput" type="file" multiple hidden>
+          <input id="fileInput" type="file" multiple hidden />
         </section>
 
         <section class="container info-section">
@@ -107,7 +182,10 @@
               <span class="kicker">Formats involved</span>
               <h2>Understand what you are converting</h2>
             </div>
-            <p>Start with a common converter or choose another service without reloading the page.</p>
+            <p>
+              Start with a common converter or choose another service without
+              reloading the page.
+            </p>
           </div>
           <div class="info-grid" id="formatInfo"></div>
         </section>
@@ -118,7 +196,9 @@
               <span class="kicker">Tool library</span>
               <h2>All main services in one place</h2>
             </div>
-            <button class="secondary-button" type="button" data-open-tools>More tools</button>
+            <button class="secondary-button" type="button" data-open-tools>
+              More tools
+            </button>
           </div>
           <div class="mini-tools-grid" id="toolsPreview"></div>
         </section>
@@ -128,17 +208,27 @@
             <article class="content-card">
               <small>Free plan</small>
               <h3>Simple limit first</h3>
-              <p>Users can select up to 10 files per batch and download converted browser-image files.</p>
+              <p>
+                Users can select up to 10 files per batch and download converted
+                browser-image files.
+              </p>
             </article>
             <article class="content-card" id="api">
               <small>Engine status</small>
               <h3>Images now, backend after</h3>
-              <p>PNG, JPG, and WEBP can convert in-browser. Video, audio, PDF, document, and presentation engines are ready for backend integration.</p>
+              <p>
+                PNG, JPG, and WEBP can convert in-browser. Video, audio, PDF,
+                document, and presentation engines are ready for backend
+                integration.
+              </p>
             </article>
             <article class="content-card" id="blog">
               <small>SEO support</small>
               <h3>Exact search pages</h3>
-              <p>Each supported conversion has a clean landing URL so search visitors land on the converter they asked for.</p>
+              <p>
+                Each supported conversion has a clean landing URL so search
+                visitors land on the converter they asked for.
+              </p>
             </article>
           </div>
         </section>
@@ -148,27 +238,84 @@
         <div class="container footer-grid">
           <div>
             <a class="brand" href="">
-              <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2.7 20.2 7.4v9.2L12 21.3 3.8 16.6V7.4L12 2.7Zm0 2.6L6.2 8.6V15.4L12 18.7l5.8-3.3V8.6L12 5.3Z"/></svg></span>
-              <span class="brand-text"><strong>FlowSync</strong><span>file forge</span></span>
+              <span class="brand-mark" aria-hidden="true"
+                ><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2.7 20.2 7.4v9.2L12 21.3 3.8 16.6V7.4L12 2.7Zm0 2.6L6.2 8.6V15.4L12 18.7l5.8-3.3V8.6L12 5.3Z"
+                  /></svg
+              ></span>
+              <span class="brand-text"
+                ><strong>FlowSync</strong><span>file forge</span></span
+              >
             </a>
-            <p>Organized converter UI for image, video, audio, PDF, document, and presentation tools.</p>
+            <p>
+              Organized converter UI for image, video, audio, PDF, document, and
+              presentation tools.
+            </p>
           </div>
-          <div><h4>Services</h4><a href="image-converter/">Images</a><a href="video-converter/">Video</a><a href="audio-converter/">Audio</a></div>
-          <div><h4>Documents</h4><a href="pdf-converter/">PDF</a><a href="document-converter/">Documents</a><a href="presentation-converter/">Presentations</a></div>
-          <div><h4>Popular</h4><a href="png-to-jpg/">PNG to JPG</a><a href="mp4-to-mp3/">MP4 to MP3</a><a href="docx-to-pdf/">DOCX to PDF</a></div>
-          <div><h4>Contact</h4><a href="mailto:hello@example.com">hello@example.com</a><a href="tools/">All tools</a><a href="sitemap.xml">Sitemap</a></div>
+          <div>
+            <h4>Services</h4>
+            <a href="image-converter/">Images</a
+            ><a href="video-converter/">Video</a
+            ><a href="audio-converter/">Audio</a>
+          </div>
+          <div>
+            <h4>Documents</h4>
+            <a href="pdf-converter/">PDF</a
+            ><a href="document-converter/">Documents</a
+            ><a href="presentation-converter/">Presentations</a>
+          </div>
+          <div>
+            <h4>Popular</h4>
+            <a href="png-to-jpg/">PNG to JPG</a
+            ><a href="mp4-to-mp3/">MP4 to MP3</a
+            ><a href="docx-to-pdf/">DOCX to PDF</a>
+          </div>
+          <div>
+            <h4>Contact</h4>
+            <a href="mailto:hello@example.com">hello@example.com</a
+            ><a href="tools/">All tools</a><a href="sitemap.xml">Sitemap</a>
+          </div>
         </div>
-        <a class="support-pill" href="mailto:hello@example.com?subject=Support%20FlowSync" aria-label="Buy me a coffee">Buy me a coffee</a>
+        <a
+          class="support-pill"
+          href="mailto:hello@example.com?subject=Support%20FlowSync"
+          aria-label="Buy me a coffee"
+          >Buy me a coffee</a
+        >
       </footer>
     </div>
 
     <div class="backdrop" id="pickerBackdrop" hidden></div>
-    <section class="format-picker" id="formatPicker" hidden aria-modal="true" role="dialog">
+    <section
+      class="format-picker"
+      id="formatPicker"
+      hidden
+      aria-modal="true"
+      role="dialog"
+    >
       <div class="modal-head">
-        <div><h2 id="pickerTitle">Choose format</h2><p id="pickerSubtitle">Pick from supported formats.</p></div>
-        <button class="close-button" id="closePicker" type="button" aria-label="Close">&times;</button>
+        <div>
+          <h2 id="pickerTitle">Choose format</h2>
+          <p id="pickerSubtitle">Pick from supported formats.</p>
+        </div>
+        <button
+          class="close-button"
+          id="closePicker"
+          type="button"
+          aria-label="Close"
+        >
+          &times;
+        </button>
       </div>
-      <div class="picker-search"><input id="pickerSearch" type="search" placeholder="Search format" autocomplete="off"></div>
+      <div class="picker-search">
+        <input
+          id="pickerSearch"
+          type="search"
+          placeholder="Search format"
+          autocomplete="off"
+        />
+      </div>
       <div class="picker-body">
         <aside class="picker-categories" id="pickerCategories"></aside>
         <div class="picker-formats" id="pickerFormats"></div>
@@ -176,25 +323,66 @@
     </section>
 
     <div class="backdrop" id="optionsBackdrop" hidden></div>
-    <section class="options-modal" id="optionsModal" hidden aria-modal="true" role="dialog">
+    <section
+      class="options-modal"
+      id="optionsModal"
+      hidden
+      aria-modal="true"
+      role="dialog"
+    >
       <form id="optionsForm" class="options-form">
         <div class="modal-head">
-          <div><h2 id="optionsTitle">Options</h2><p>Set per-file output details.</p></div>
-          <button class="close-button" id="closeOptions" type="button" aria-label="Close">&times;</button>
+          <div>
+            <h2 id="optionsTitle">Options</h2>
+            <p>Set per-file output details.</p>
+          </div>
+          <button
+            class="close-button"
+            id="closeOptions"
+            type="button"
+            aria-label="Close"
+          >
+            &times;
+          </button>
         </div>
         <div class="options-body" id="optionsBody"></div>
         <div class="options-actions">
-          <button class="secondary-button" id="optionsCancel" type="button" onclick="document.getElementById('closeOptions').click()">Cancel</button>
-          <button class="primary-button" id="optionsSave" type="submit">Save options</button>
+          <button
+            class="secondary-button"
+            id="optionsCancel"
+            type="button"
+            onclick="document.getElementById('closeOptions').click()"
+          >
+            Cancel
+          </button>
+          <button class="primary-button" id="optionsSave" type="submit">
+            Save options
+          </button>
         </div>
       </form>
     </section>
 
     <div class="backdrop" id="toolsBackdrop" hidden></div>
-    <section class="tools-modal" id="toolsModal" hidden aria-modal="true" role="dialog">
+    <section
+      class="tools-modal"
+      id="toolsModal"
+      hidden
+      aria-modal="true"
+      role="dialog"
+    >
       <div class="modal-head">
-        <div><h2>More tools</h2><p>Search exact converters or choose a main service category.</p></div>
-        <button class="close-button" id="closeTools" type="button" aria-label="Close">&times;</button>
+        <div>
+          <h2>More tools</h2>
+          <p>Search exact converters or choose a main service category.</p>
+        </div>
+        <button
+          class="close-button"
+          id="closeTools"
+          type="button"
+          aria-label="Close"
+        >
+          &times;
+        </button>
       </div>
       <div class="tools-modal-body" id="toolsModalBody"></div>
     </section>

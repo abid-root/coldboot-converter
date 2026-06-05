@@ -1,0 +1,157 @@
+﻿/* Options modal: smaller, right side, more visible */
+
+/* lighter overlay, not full black */
+#optionsBackdrop {
+  background: rgba(4, 5, 10, 0.20) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+#optionsBackdrop[hidden] {
+  display: none !important;
+}
+
+/* place modal on right side */
+#optionsBackdrop:not([hidden]) {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  padding: 22px clamp(28px, 7vw, 130px) 22px 24px !important;
+}
+
+/* smaller card */
+#optionsModal,
+.options-modal {
+  width: min(500px, calc(100vw - 48px)) !important;
+  max-height: 76vh !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+
+  background:
+    linear-gradient(180deg, rgba(37, 37, 50, 0.98), rgba(25, 25, 35, 0.98)) !important;
+  border: 1px solid rgba(255,255,255,0.16) !important;
+  box-shadow:
+    0 34px 100px rgba(0,0,0,0.62),
+    0 0 0 1px rgba(139,92,246,0.08) inset !important;
+}
+
+/* smaller header */
+#optionsModal .modal-head,
+.options-modal .modal-head {
+  padding: 14px 16px 10px !important;
+  border-bottom: 1px solid rgba(255,255,255,0.10) !important;
+}
+
+#optionsModal .modal-head h2,
+.options-modal .modal-head h2 {
+  font-size: 0.98rem !important;
+  margin: 0 !important;
+}
+
+#optionsModal .modal-head p,
+.options-modal .modal-head p {
+  margin-top: 3px !important;
+  font-size: 0.74rem !important;
+  color: rgba(235,235,245,0.68) !important;
+}
+
+#optionsModal .close-button,
+.options-modal .close-button {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 10px !important;
+  background: rgba(255,255,255,0.07) !important;
+}
+
+/* body smaller */
+.options-body {
+  padding: 14px 16px !important;
+  gap: 10px !important;
+  max-height: 49vh !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+/* full width rows */
+.options-body .field.full,
+.options-body .field:has([name="rename"]),
+.options-body .field:has(input[disabled]) {
+  grid-column: 1 / -1 !important;
+}
+
+.options-body .field {
+  gap: 6px !important;
+}
+
+.options-body .field span,
+.options-body .field strong {
+  font-size: 0.76rem !important;
+  color: rgba(245,245,250,0.88) !important;
+}
+
+/* more visible input boxes */
+.options-body .field input,
+.options-body .field select {
+  min-height: 37px !important;
+  border-radius: 11px !important;
+  font-size: 0.88rem !important;
+  padding: 0 11px !important;
+
+  background: rgba(255,255,255,0.075) !important;
+  border: 1px solid rgba(255,255,255,0.16) !important;
+  color: rgba(255,255,255,0.92) !important;
+}
+
+.options-body .field input::placeholder {
+  color: rgba(255,255,255,0.42) !important;
+}
+
+.options-body .field input:focus,
+.options-body .field select:focus {
+  border-color: rgba(139,92,246,0.7) !important;
+  box-shadow: 0 0 0 3px rgba(139,92,246,0.18) !important;
+}
+
+.options-body .field small {
+  font-size: 0.68rem !important;
+  line-height: 1.28 !important;
+  color: rgba(230,230,245,0.58) !important;
+}
+
+/* remove background coming later field */
+.options-body .field input[disabled] {
+  opacity: 0.65 !important;
+  background: rgba(255,255,255,0.055) !important;
+}
+
+/* footer smaller */
+.options-actions {
+  padding: 11px 16px !important;
+  gap: 9px !important;
+  border-top: 1px solid rgba(255,255,255,0.10) !important;
+}
+
+.options-actions button,
+#optionsSave {
+  min-height: 39px !important;
+  padding: 0 16px !important;
+  border-radius: 12px !important;
+}
+
+/* phone: center it */
+@media (max-width: 720px) {
+  #optionsBackdrop:not([hidden]) {
+    justify-content: center !important;
+    padding: 16px !important;
+  }
+
+  #optionsModal,
+  .options-modal {
+    width: calc(100vw - 28px) !important;
+  }
+
+  .options-body {
+    grid-template-columns: 1fr !important;
+  }
+}

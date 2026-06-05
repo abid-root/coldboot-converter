@@ -1,4 +1,4 @@
-﻿import { categories, conversions, formats, formatNotes, popularRoutes } from './data.js';
+import { categories, conversions, formats, formatNotes, popularRoutes } from './data.js';
 import { bytesToSize } from './upload.js';
 
 const iconMap = {
@@ -214,41 +214,56 @@ function queueStatusText(item) {
 function optionsForCategory(category, item) {
   const baseName = escapeHtml(stripExtension(item.name));
   const renameValue = escapeHtml(item.settings.rename || '');
-  const widthValue = escapeHtml(item.settings.width || '');
-  const heightValue = escapeHtml(item.settings.height || '');
-  const qualityValue = escapeHtml(item.settings.quality || '');
-  const outputLabel = escapeHtml(formats[item.to]?.label || 'Output');
+  const rename = `<label class="field full"><span>Output name</span><input name="rename" placeholder="${baseName}" value="${renameValue}"><small>Leave empty to keep the original name.</small></label>`;
+
+  if (category === 'video') {
+    return `
+      <label class="field"><span>Resolution</span><select name="resolution"><option>Original</option><option>1080p</option><option>720p</option><option>480p</option></select></label>
+      <label class="field"><span>Quality</span><input name="quality" type="number" min="1" max="100" placeholder="80"></label>
+      <label class="field"><span>Trim start</span><input name="trimStart" placeholder="00:00"></label>
+      <label class="field"><span>Trim end</span><input name="trimEnd" placeholder="00:30"></label>
+      <label class="switch-field"><span>Remove audio</span><input name="removeAudio" type="checkbox"></label>
+      ${rename}
+    `;
+  }
+
+  if (category === 'audio') {
+    return `
+      <label class="field"><span>Bitrate</span><select name="bitrate"><option>Auto</option><option>128 kbps</option><option>192 kbps</option><option>256 kbps</option><option>320 kbps</option></select></label>
+      <label class="field"><span>Sample rate</span><select name="sampleRate"><option>Auto</option><option>44100 Hz</option><option>48000 Hz</option></select></label>
+      <label class="switch-field"><span>Normalize volume</span><input name="normalize" type="checkbox"></label>
+      <label class="field"><span>Trim</span><input name="trim" placeholder="00:00 - 00:30"></label>
+      ${rename}
+    `;
+  }
+
+  if (category === 'pdf' || item.from === 'pdf' || item.to === 'pdf') {
+    return `
+      <label class="field"><span>Page range</span><input name="pages" placeholder="All or 1-5"></label>
+      <label class="field"><span>DPI</span><select name="dpi"><option>150</option><option>200</option><option>300</option></select></label>
+      <label class="field"><span>Image quality</span><input name="quality" type="number" min="1" max="100" placeholder="85"></label>
+      <label class="switch-field"><span>Merge pages</span><input name="merge" type="checkbox"></label>
+      ${rename}
+    `;
+  }
+
+  if (category === 'document' || category === 'presentation') {
+    return `
+      <label class="field"><span>Page size</span><select name="pageSize"><option>Auto</option><option>A4</option><option>Letter</option></select></label>
+      <label class="switch-field"><span>Keep formatting</span><input name="formatting" type="checkbox" checked></label>
+      <label class="field"><span>Range</span><input name="range" placeholder="All"></label>
+      ${rename}
+    `;
+  }
 
   return `
-    <label class="field">
-      <span>Width</span>
-      <input name="width" type="number" min="1" placeholder="Auto" value="${widthValue}">
-      <small>Output width in pixels.</small>
-    </label>
-
-    <label class="field">
-      <span>Height</span>
-      <input name="height" type="number" min="1" placeholder="Auto" value="${heightValue}">
-      <small>Output height in pixels.</small>
-    </label>
-
-    <label class="field">
-      <span>Quality</span>
-      <input name="quality" type="number" min="1" max="100" placeholder="85" value="${qualityValue}">
-      <small>${outputLabel} quality level.</small>
-    </label>
-
-    <label class="field full">
-      <span>Rename file</span>
-      <input name="rename" placeholder="${baseName}" value="${renameValue}">
-      <small>Leave empty to keep the original name.</small>
-    </label>
-
-    <label class="field full">
-      <span>Remove background</span>
-      <input type="text" placeholder="Coming later" disabled>
-      <small>Coming later — useful for product images, profile photos, and clean cutouts.</small>
-    </label>
+    <label class="field"><span>Width</span><input name="width" type="number" placeholder="Auto"><small>Output width in pixels.</small></label>
+    <label class="field"><span>Height</span><input name="height" type="number" placeholder="Auto"><small>Output height in pixels.</small></label>
+    <label class="field"><span>Fit</span><select name="fit"><option>Keep aspect ratio</option><option>Crop to size</option><option>Stretch</option></select></label>
+    <label class="field"><span>Quality</span><input name="quality" type="number" min="1" max="100" placeholder="85"><small>${escapeHtml(formats[item.to]?.label || 'Output')} quality level.</small></label>
+    <label class="switch-field"><span>Remove metadata</span><input name="strip" type="checkbox" checked></label>
+    <label class="switch-field"><span>White background</span><input name="background" type="checkbox"></label>
+    ${rename}
   `;
 }
 
@@ -308,4 +323,3 @@ function escapeHtml(value) {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
 }
-

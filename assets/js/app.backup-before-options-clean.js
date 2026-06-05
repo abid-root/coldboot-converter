@@ -603,5 +603,91 @@ if (document.readyState === 'loading') {
 }
 /* Safe upload dropdown direction end */
 
+/* Options final cleaner start */
+function setupFinalOptionsCleaner() {
+  function getFieldBlock(element) {
+    let node = element.closest('.field, label, .option-field');
 
+    if (node) return node;
+
+    node = element;
+    while (node && node.parentElement && !node.parentElement.classList.contains('options-body')) {
+      node = node.parentElement;
+    }
+
+    return node || element;
+  }
+
+  function cleanOptionsModal() {
+    const modal = document.querySelector('#optionsModal, .options-modal');
+    if (!modal) return;
+
+    const body = modal.querySelector('.options-body');
+    if (!body) return;
+
+    modal.classList.add('options-final-clean');
+
+    /* Hide all checkbox option blocks: Remove metadata + White background */
+    body.querySelectorAll('input[type="checkbox"]').forEach(input => {
+      const block = getFieldBlock(input);
+      block.style.display = 'none';
+      block.classList.add('option-hidden-force');
+    });
+
+    /* Rename output name label */
+    Array.from(body.querySelectorAll('.field, label')).forEach(field => {
+      const text = field.textContent.toLowerCase();
+
+      if (text.includes('output name') || text.includes('rename')) {
+        const title = field.querySelector('span, strong');
+        if (title) title.textContent = 'Rename file';
+        field.classList.add('option-full-row');
+      }
+    });
+
+    /* Add Remove background later card once */
+    let bgCard = body.querySelector('.remove-bg-later-card');
+
+    if (!bgCard) {
+      bgCard = document.createElement('div');
+      bgCard.className = 'field remove-bg-later-card option-full-row';
+      bgCard.innerHTML = `
+        <span>Remove background</span>
+        <small>Coming later - useful for product images, profile photos, and clean cutouts.</small>
+        <em>Later</em>
+      `;
+
+      const renameField = Array.from(body.querySelectorAll('.field, label')).find(field => {
+        const text = field.textContent.toLowerCase();
+        return text.includes('rename file') || text.includes('output name');
+      });
+
+      if (renameField) {
+        body.insertBefore(bgCard, renameField);
+      } else {
+        body.appendChild(bgCard);
+      }
+    }
+  }
+
+  document.addEventListener('click', event => {
+    const button = event.target.closest('button');
+    if (!button) return;
+
+    if (button.textContent.trim().toLowerCase().includes('options')) {
+      setTimeout(cleanOptionsModal, 30);
+      setTimeout(cleanOptionsModal, 120);
+      setTimeout(cleanOptionsModal, 300);
+    }
+  });
+
+  cleanOptionsModal();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupFinalOptionsCleaner);
+} else {
+  setupFinalOptionsCleaner();
+}
+/* Options final cleaner end */
 
