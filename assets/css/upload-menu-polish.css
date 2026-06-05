@@ -1,0 +1,157 @@
+﻿/* Small upload source menu - CSS only */
+
+#uploadMenu,
+.upload-menu {
+  width: 248px !important;
+  min-width: 248px !important;
+  max-width: 248px !important;
+
+  padding: 8px !important;
+  border-radius: 18px !important;
+
+  background: rgba(13, 14, 25, 0.96) !important;
+  border: 1px solid rgba(143, 111, 255, 0.20) !important;
+
+  box-shadow:
+    0 18px 42px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+
+  overflow: visible !important;
+}
+
+#uploadMenu::before,
+.upload-menu::before {
+  display: none !important;
+}
+
+#uploadMenu::after,
+.upload-menu::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 50% !important;
+  bottom: -7px !important;
+
+  width: 14px !important;
+  height: 14px !important;
+
+  transform: translateX(-50%) rotate(45deg) !important;
+  background: rgba(13, 14, 25, 0.96) !important;
+  border-right: 1px solid rgba(143, 111, 255, 0.20) !important;
+  border-bottom: 1px solid rgba(143, 111, 255, 0.20) !important;
+}
+
+#uploadMenu [data-upload-option],
+.upload-menu [data-upload-option] {
+  min-height: 38px !important;
+  height: 38px !important;
+
+  padding: 7px 9px !important;
+  margin: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+
+  border: 0 !important;
+  border-radius: 12px !important;
+  background: transparent !important;
+
+  color: rgba(244, 245, 255, 0.92) !important;
+  font-size: 13px !important;
+  font-weight: 750 !important;
+  line-height: 1 !important;
+  text-align: left !important;
+
+  box-shadow: none !important;
+  cursor: pointer !important;
+
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    transform 160ms ease !important;
+}
+
+#uploadMenu [data-upload-option] + [data-upload-option],
+.upload-menu [data-upload-option] + [data-upload-option] {
+  margin-top: 4px !important;
+}
+
+#uploadMenu [data-upload-option]::before,
+.upload-menu [data-upload-option]::before {
+  content: "" !important;
+
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+
+  border-radius: 9px !important;
+
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255,255,255,0.14), transparent 50%),
+    linear-gradient(135deg, rgba(139,92,246,0.34), rgba(89,65,210,0.20)) !important;
+
+  border: 1px solid rgba(159, 130, 255, 0.22) !important;
+  box-shadow: none !important;
+}
+
+#uploadMenu [data-upload-option]:hover,
+.upload-menu [data-upload-option]:hover {
+  background: rgba(139, 92, 246, 0.12) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+}
+
+#uploadMenu [data-upload-option]:active,
+.upload-menu [data-upload-option]:active {
+  transform: translateY(0) scale(0.99) !important;
+}
+
+/* make URL item a little warm */
+#uploadMenu [data-upload-option*="url"]::before,
+.upload-menu [data-upload-option*="url"]::before {
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255,255,255,0.14), transparent 50%),
+    linear-gradient(135deg, rgba(255,125,92,0.30), rgba(139,92,246,0.16)) !important;
+}
+
+/* cloud items */
+#uploadMenu [data-upload-option*="drive"]::before,
+.upload-menu [data-upload-option*="drive"]::before,
+#uploadMenu [data-upload-option*="dropbox"]::before,
+.upload-menu [data-upload-option*="dropbox"]::before,
+#uploadMenu [data-upload-option*="onedrive"]::before,
+.upload-menu [data-upload-option*="onedrive"]::before {
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255,255,255,0.14), transparent 50%),
+    linear-gradient(135deg, rgba(45,212,191,0.26), rgba(139,92,246,0.16)) !important;
+}
+
+/* light theme */
+html[data-theme="light"] #uploadMenu,
+html[data-theme="light"] .upload-menu {
+  background: rgba(255, 250, 241, 0.96) !important;
+  border-color: rgba(105, 80, 180, 0.16) !important;
+  box-shadow:
+    0 18px 42px rgba(65, 49, 24, 0.14),
+    inset 0 1px 0 rgba(255,255,255,0.75) !important;
+}
+
+html[data-theme="light"] #uploadMenu::after,
+html[data-theme="light"] .upload-menu::after {
+  background: rgba(255, 250, 241, 0.96) !important;
+}
+
+html[data-theme="light"] #uploadMenu [data-upload-option],
+html[data-theme="light"] .upload-menu [data-upload-option] {
+  color: rgba(28, 29, 40, 0.88) !important;
+}
+
+html[data-theme="light"] #uploadMenu [data-upload-option]:hover,
+html[data-theme="light"] .upload-menu [data-upload-option]:hover {
+  color: #171923 !important;
+  background: rgba(139, 92, 246, 0.10) !important;
+}
