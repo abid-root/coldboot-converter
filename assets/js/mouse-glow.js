@@ -39,8 +39,8 @@
   });
 
   function animateGlow() {
-    glowX += (targetX - glowX) * 0.18;
-    glowY += (targetY - glowY) * 0.18;
+    glowX += (targetX - glowX) * 0.14;
+    glowY += (targetY - glowY) * 0.14;
 
     document.documentElement.style.setProperty('--mouse-x', `${glowX}px`);
     document.documentElement.style.setProperty('--mouse-y', `${glowY}px`);

@@ -24,6 +24,11 @@
   z-index: 120 !important;
 }
 
+.queue-row:focus-within {
+  position: relative !important;
+  z-index: 420 !important;
+}
+
 .queue-output-button {
   min-height: 38px !important;
   min-width: 104px !important;
@@ -40,12 +45,28 @@
 }
 
 .queue-output-menu {
+  top: calc(100% + 10px) !important;
+  display: none !important;
+  gap: 6px !important;
+  min-width: 100% !important;
+  padding: 8px !important;
+  border-radius: 13px !important;
   background: #171720 !important;
   border: 1px solid rgba(255,255,255,0.14) !important;
   box-shadow: 0 22px 60px rgba(0,0,0,0.5) !important;
-  z-index: 200 !important;
+  z-index: 520 !important;
+}
+
+.queue-output-picker:focus-within .queue-output-menu {
+  display: grid !important;
 }
 
 .queue-output-menu button {
+  min-height: 42px !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 14px !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
   color: #f6f7fb !important;
 }
