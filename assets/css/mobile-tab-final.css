@@ -1,0 +1,1318 @@
+/* Phone and small tablet polish */
+.mobile-menu-button {
+  display: none;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel-soft);
+  color: var(--text);
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex-direction: column;
+  padding: 0;
+}
+
+.mobile-menu-button span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.mobile-menu-button[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.mobile-menu-button[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-button[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+.mobile-menu {
+  position: relative;
+  z-index: 70;
+  display: grid;
+  gap: 4px;
+  pointer-events: auto;
+  width: min(var(--wrap), calc(100% - 40px));
+  margin: 8px auto 0;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--panel) 96%, transparent);
+  box-shadow: 0 22px 60px rgba(0,0,0,0.38);
+}
+
+.mobile-menu[hidden] {
+  display: none !important;
+}
+
+.mobile-menu a,
+.mobile-menu button {
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--text);
+  padding: 0 12px;
+  font-weight: 850;
+  text-align: left;
+}
+
+.mobile-menu a:hover,
+.mobile-menu button:hover {
+  background: var(--panel-soft);
+}
+
+.mobile-menu button[data-open-tools] {
+  color: white !important;
+  border: 1px solid color-mix(in srgb, var(--primary) 44%, var(--line)) !important;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 72%, white 4%), var(--primary-2)) !important;
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--primary) 22%, transparent) !important;
+}
+
+.mobile-menu button[data-open-tools]:hover {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2)) !important;
+}
+
+.footer-social-slots {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 12px;
+}
+
+.footer-social-slots .social-slot {
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--panel-soft) 82%, var(--primary));
+}
+
+.topbar .nav-actions {
+  order: 3 !important;
+  margin-left: auto !important;
+}
+
+.topbar .brand {
+  order: 1 !important;
+}
+
+.topbar .nav-links {
+  order: 2 !important;
+}
+
+.topbar .nav-links {
+  justify-content: flex-start !important;
+  gap: 8px !important;
+}
+
+.nav-more-tools {
+  margin-left: auto !important;
+  margin-right: clamp(10px, 1.6vw, 24px) !important;
+  color: white !important;
+  border: 1px solid color-mix(in srgb, var(--primary) 42%, var(--line)) !important;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 72%, #ffffff 4%), var(--primary-2)) !important;
+  box-shadow: 0 14px 34px color-mix(in srgb, var(--primary) 22%, transparent) !important;
+}
+
+.nav-more-tools:hover {
+  color: white !important;
+  background: linear-gradient(135deg, var(--primary), var(--primary-2)) !important;
+}
+
+.upload-panel,
+.upload-inner {
+  cursor: pointer;
+}
+
+.footer {
+  width: min(var(--wrap), calc(100% - 40px));
+  margin: 42px auto 28px;
+  padding: 28px 0 34px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 14% 0%, color-mix(in srgb, var(--primary) 16%, transparent), transparent 38%),
+    radial-gradient(circle at 92% 20%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 34%),
+    color-mix(in srgb, var(--panel-strong) 92%, transparent);
+  box-shadow: var(--shadow);
+}
+
+.footer .container {
+  width: calc(100% - 44px);
+}
+
+.footer-grid {
+  grid-template-columns: minmax(260px, 1.45fr) repeat(3, minmax(130px, 1fr)) !important;
+  align-items: start;
+}
+
+@media (max-width: 920px) {
+  .container {
+    width: min(100% - 28px, var(--wrap)) !important;
+  }
+
+  .topbar-wrap,
+  header.topbar-wrap {
+    padding: 8px 0 0 !important;
+  }
+
+  .topbar {
+    min-height: 58px !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 10px !important;
+    padding: 8px 10px 8px 12px !important;
+    border-radius: 18px !important;
+  }
+
+  .brand {
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+  }
+
+  .brand-text strong {
+    font-size: 1rem !important;
+  }
+
+  .brand-text span {
+    display: none !important;
+  }
+
+  .nav-links {
+    display: none !important;
+  }
+
+  .nav-actions {
+    margin-left: 0 !important;
+    gap: 8px !important;
+  }
+
+  .mobile-menu-button {
+    display: inline-flex !important;
+  }
+
+  .icon-button {
+    width: 42px !important;
+    height: 42px !important;
+    min-height: 42px !important;
+  }
+
+  .hero {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+    padding-top: 22px !important;
+  }
+
+  .hero-copy {
+    max-width: none !important;
+  }
+
+  .hero h1 {
+    max-width: 680px !important;
+    font-size: clamp(2.2rem, 8vw, 3.7rem) !important;
+    line-height: 1 !important;
+    letter-spacing: 0 !important;
+  }
+
+  .hero p {
+    max-width: 640px !important;
+    margin-top: 14px !important;
+    font-size: 1rem !important;
+  }
+
+  .hero-actions {
+    margin-top: 18px !important;
+    align-items: stretch !important;
+  }
+
+  .service-switcher,
+  .service-button,
+  .hero-actions > .secondary-button {
+    width: 100% !important;
+  }
+
+  .service-button {
+    min-width: 0 !important;
+  }
+
+  .service-menu {
+    width: min(100%, calc(100vw - 28px)) !important;
+  }
+
+  .route-board {
+    min-height: 230px !important;
+    border-radius: 22px !important;
+  }
+
+  .route-route {
+    width: min(520px, 92%) !important;
+  }
+
+  .mini-tools-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
+  .content-card-grid,
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .queue-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .queue-conversion {
+    justify-content: flex-start !important;
+    flex-wrap: wrap !important;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 1100px) {
+  .container {
+    width: min(100% - 36px, var(--wrap)) !important;
+  }
+
+  .topbar-wrap,
+  header.topbar-wrap {
+    padding: 10px 0 0 !important;
+  }
+
+  .topbar {
+    min-height: 64px !important;
+    flex-wrap: nowrap !important;
+    gap: 16px !important;
+    padding: 9px 12px 9px 16px !important;
+    border-radius: 22px !important;
+  }
+
+  .brand {
+    order: 1 !important;
+    min-width: 0 !important;
+    flex: 0 1 230px !important;
+  }
+
+  .brand-text span {
+    display: block !important;
+  }
+
+  .nav-links {
+    order: 2 !important;
+    display: flex !important;
+    flex: 1 1 auto !important;
+    justify-content: flex-start !important;
+    flex-wrap: nowrap !important;
+    gap: 6px !important;
+    white-space: nowrap !important;
+  }
+
+  .nav-links a,
+  .nav-links button {
+    padding: 9px 11px !important;
+    font-size: 0.86rem !important;
+  }
+
+  .nav-actions {
+    order: 3 !important;
+    flex: 0 0 auto !important;
+    margin-left: auto !important;
+  }
+
+  .mobile-menu-button,
+  .mobile-menu {
+    display: none !important;
+  }
+
+  .hero {
+    grid-template-columns: 1fr !important;
+    justify-items: center !important;
+    text-align: center !important;
+    gap: 24px !important;
+    padding-top: 40px !important;
+    padding-bottom: 16px !important;
+  }
+
+  .hero-copy {
+    max-width: 760px !important;
+    margin-inline: auto !important;
+  }
+
+  .kicker {
+    justify-content: center !important;
+  }
+
+  .hero h1,
+  .hero p {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 6vw, 4.4rem) !important;
+    letter-spacing: 0 !important;
+  }
+
+  .hero p {
+    max-width: 720px !important;
+  }
+
+  .hero-actions {
+    justify-content: center !important;
+  }
+
+  .route-board {
+    width: min(680px, 100%) !important;
+    max-width: 680px !important;
+    min-height: 240px !important;
+    margin-inline: auto !important;
+  }
+
+  .route-route,
+  body:has(#queuePanel:not([hidden])) .route-route {
+    width: min(520px, 90%) !important;
+    grid-template-columns: minmax(170px, 1fr) 54px minmax(170px, 1fr) !important;
+    gap: 14px !important;
+  }
+
+  #fromCard,
+  #toCard,
+  body:has(#queuePanel:not([hidden])) #fromCard,
+  body:has(#queuePanel:not([hidden])) #toCard {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: 142px !important;
+    min-height: 142px !important;
+    max-height: 142px !important;
+    padding: 15px 16px !important;
+  }
+
+  #fromCard strong,
+  #toCard strong,
+  body:has(#queuePanel:not([hidden])) #fromCard strong,
+  body:has(#queuePanel:not([hidden])) #toCard strong {
+    width: calc(100% - 24px) !important;
+    max-width: calc(100% - 24px) !important;
+    font-size: 1.25rem !important;
+    letter-spacing: 0 !important;
+  }
+
+  #fromCard small,
+  #toCard small,
+  body:has(#queuePanel:not([hidden])) #fromCard small,
+  body:has(#queuePanel:not([hidden])) #toCard small {
+    width: calc(100% - 24px) !important;
+    max-width: calc(100% - 24px) !important;
+  }
+
+  .swap-button,
+  body:has(#queuePanel:not([hidden])) .swap-button {
+    width: 54px !important;
+    height: 54px !important;
+    min-width: 54px !important;
+    min-height: 54px !important;
+    transform: none !important;
+  }
+
+  .workspace {
+    padding-top: 4px !important;
+  }
+
+  .upload-panel {
+    width: min(860px, 100%) !important;
+  }
+
+  .info-section,
+  .content-cards {
+    padding: 18px 0 !important;
+  }
+
+  .section-head {
+    align-items: end !important;
+    gap: 18px !important;
+  }
+
+  .info-grid,
+  .content-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .footer {
+    width: min(var(--wrap), calc(100% - 36px)) !important;
+    margin-top: 34px !important;
+  }
+
+  .footer-grid {
+    grid-template-columns: minmax(240px, 1.4fr) repeat(3, minmax(120px, 1fr)) !important;
+    gap: 20px !important;
+  }
+
+  .support-pill {
+    position: static !important;
+    width: fit-content !important;
+    margin: 14px auto 0 !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    width: min(100% - 22px, var(--wrap)) !important;
+  }
+
+  .topbar {
+    border-radius: 16px !important;
+  }
+
+  .brand-mark {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 11px !important;
+  }
+
+  .brand-text strong {
+    max-width: 126px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mobile-menu {
+    width: min(100% - 22px, var(--wrap)) !important;
+    border-radius: 16px !important;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.05rem, 12vw, 3rem) !important;
+  }
+
+  .kicker {
+    font-size: 0.66rem !important;
+    letter-spacing: 0.12em !important;
+  }
+
+  .route-board {
+    min-height: 0 !important;
+    padding: 16px 0 !important;
+  }
+
+  .route-route {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+    width: min(310px, 90%) !important;
+  }
+
+  .format-card-button {
+    min-height: 118px !important;
+    border-radius: 16px !important;
+  }
+
+  .swap-button {
+    width: 48px !important;
+    height: 48px !important;
+    margin: -2px auto !important;
+    transform: rotate(90deg) !important;
+  }
+
+  .upload-panel {
+    padding: 10px !important;
+    border-radius: 20px !important;
+  }
+
+  .upload-inner {
+    min-height: 220px !important;
+    padding: 24px 14px !important;
+    border-radius: 18px !important;
+  }
+
+  .upload-inner h2 {
+    font-size: 1.55rem !important;
+  }
+
+  .queue-head,
+  .queue-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .queue-actions > *,
+  #addFileButton,
+  #convertButton {
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+
+  .queue-output-picker,
+  .queue-output-button {
+    width: 100% !important;
+  }
+
+  .info-grid,
+  .content-card-grid,
+  .tool-grid-large,
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .info-card {
+    grid-template-columns: 1fr !important;
+  }
+
+  .format-picker,
+  .options-modal,
+  .tools-modal {
+    width: calc(100vw - 18px) !important;
+    max-height: 88vh !important;
+    border-radius: 18px !important;
+  }
+
+  .picker-body {
+    grid-template-columns: 1fr !important;
+    max-height: 64vh !important;
+  }
+
+  .picker-categories {
+    flex-direction: row !important;
+    overflow-x: auto !important;
+  }
+
+  .picker-formats {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .options-body {
+    grid-template-columns: 1fr !important;
+    padding: 16px !important;
+  }
+
+  .support-pill {
+    position: static !important;
+    width: fit-content !important;
+    margin: 14px auto 0 !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .brand-text strong {
+    max-width: 104px;
+  }
+
+  .mobile-menu-button,
+  .icon-button {
+    width: 38px !important;
+    height: 38px !important;
+    min-height: 38px !important;
+  }
+
+  .picker-formats {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Final phone/tablet pass requested after visual QA */
+.tools-strip {
+  display: none !important;
+}
+
+@media (max-width: 700px) {
+  body:has(#queuePanel:not([hidden])) {
+    padding-bottom: 86px !important;
+  }
+
+  .hero {
+    gap: 12px !important;
+    padding-top: 12px !important;
+    padding-bottom: 10px !important;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.85rem, 9vw, 2.35rem) !important;
+    line-height: 1.02 !important;
+    max-width: 100% !important;
+  }
+
+  .hero p {
+    margin-top: 8px !important;
+    font-size: 0.9rem !important;
+    line-height: 1.35 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+
+  .hero-actions {
+    margin-top: 12px !important;
+    gap: 8px !important;
+  }
+
+  .service-button,
+  .hero-actions > .secondary-button {
+    min-height: 42px !important;
+    padding: 8px 12px !important;
+    border-radius: 13px !important;
+  }
+
+  .route-board {
+    min-height: 112px !important;
+    padding: 10px !important;
+    border-radius: 18px !important;
+  }
+
+  .route-board::before,
+  .route-board::after {
+    opacity: 0.38 !important;
+  }
+
+  .route-route,
+  body:has(#queuePanel:not([hidden])) .route-route {
+    width: 100% !important;
+    grid-template-columns: minmax(0, 1fr) 38px minmax(0, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  #fromCard,
+  #toCard,
+  body:has(#queuePanel:not([hidden])) #fromCard,
+  body:has(#queuePanel:not([hidden])) #toCard {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: 74px !important;
+    min-height: 74px !important;
+    max-height: 74px !important;
+    padding: 10px 12px !important;
+    border-radius: 15px !important;
+    display: grid !important;
+    place-items: center start !important;
+    align-content: center !important;
+  }
+
+  #fromCard .format-eyebrow,
+  #toCard .format-eyebrow,
+  #fromCard .format-icon,
+  #toCard .format-icon,
+  #fromCard small,
+  #toCard small,
+  body:has(#queuePanel:not([hidden])) #fromCard .format-eyebrow,
+  body:has(#queuePanel:not([hidden])) #toCard .format-eyebrow,
+  body:has(#queuePanel:not([hidden])) #fromCard .format-icon,
+  body:has(#queuePanel:not([hidden])) #toCard .format-icon,
+  body:has(#queuePanel:not([hidden])) #fromCard small,
+  body:has(#queuePanel:not([hidden])) #toCard small {
+    display: none !important;
+  }
+
+  #fromCard strong,
+  #toCard strong,
+  body:has(#queuePanel:not([hidden])) #fromCard strong,
+  body:has(#queuePanel:not([hidden])) #toCard strong {
+    width: auto !important;
+    max-width: calc(100% - 20px) !important;
+    margin: 0 !important;
+    font-size: 1.34rem !important;
+    line-height: 1 !important;
+    letter-spacing: 0 !important;
+  }
+
+  #fromCard .format-chevron,
+  #toCard .format-chevron,
+  body:has(#queuePanel:not([hidden])) #fromCard .format-chevron,
+  body:has(#queuePanel:not([hidden])) #toCard .format-chevron {
+    right: 10px !important;
+    bottom: 50% !important;
+    transform: translateY(50%) !important;
+    font-size: 1.25rem !important;
+  }
+
+  .swap-button,
+  body:has(#queuePanel:not([hidden])) .swap-button {
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    min-height: 38px !important;
+    font-size: 1.2rem !important;
+    transform: none !important;
+  }
+
+  .workspace {
+    padding-top: 0 !important;
+  }
+
+  .upload-panel {
+    padding: 8px !important;
+  }
+
+  .upload-inner {
+    min-height: 168px !important;
+    padding: 18px 12px !important;
+  }
+
+  .upload-icon {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 16px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .upload-inner h2 {
+    font-size: 1.28rem !important;
+    letter-spacing: 0 !important;
+  }
+
+  .upload-inner p,
+  .privacy-line {
+    font-size: 0.82rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .upload-actions {
+    margin-top: 14px !important;
+  }
+
+  .info-section,
+  .content-cards {
+    padding: 12px 0 !important;
+  }
+
+  .section-head {
+    margin-bottom: 9px !important;
+    gap: 8px !important;
+  }
+
+  .section-head h2 {
+    font-size: 1.2rem !important;
+    letter-spacing: 0 !important;
+  }
+
+  .section-head p {
+    font-size: 0.86rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .info-card,
+  .content-card {
+    padding: 14px !important;
+    border-radius: 16px !important;
+  }
+
+  .info-icon {
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 13px !important;
+  }
+
+  .content-card small {
+    letter-spacing: 0.08em !important;
+    font-size: 0.68rem !important;
+  }
+
+  .content-card h3 {
+    margin: 5px 0 !important;
+    font-size: 1rem !important;
+    letter-spacing: 0 !important;
+  }
+
+  .content-card p {
+    font-size: 0.88rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .footer {
+    width: calc(100% - 22px) !important;
+    margin: 20px auto 14px !important;
+    padding: 18px 0 20px !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 24px !important;
+    background:
+      radial-gradient(circle at 18% 0%, color-mix(in srgb, var(--primary) 18%, transparent), transparent 36%),
+      color-mix(in srgb, var(--panel-strong) 92%, transparent) !important;
+    box-shadow: var(--shadow) !important;
+  }
+
+  .footer .container {
+    width: calc(100% - 28px) !important;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .footer h4 {
+    margin-bottom: 6px !important;
+  }
+
+  .footer a {
+    margin: 4px 0 !important;
+    font-size: 0.9rem !important;
+  }
+
+  .footer-grid > div:not(:first-child) {
+    padding-top: 12px !important;
+    border-top: 1px solid var(--line) !important;
+  }
+
+  .footer-grid > div:not(:first-child) a {
+    display: inline-flex !important;
+    margin-right: 14px !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) #queuePanel {
+    min-height: 0 !important;
+    margin-bottom: 28px !important;
+    border-radius: 20px !important;
+  }
+
+  .queue-head {
+    padding: 12px 14px !important;
+    gap: 8px !important;
+  }
+
+  .queue-head h2 {
+    font-size: 1.35rem !important;
+    letter-spacing: 0 !important;
+  }
+
+  .queue-head p {
+    font-size: 0.82rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .queue-head .line-button {
+    min-height: 36px !important;
+    padding: 0 12px !important;
+  }
+
+  .queue-list {
+    gap: 8px !important;
+    padding: 8px !important;
+  }
+
+  .queue-row {
+    grid-template-columns: 1fr !important;
+    gap: 9px !important;
+    padding: 11px !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 16px !important;
+    background: color-mix(in srgb, var(--panel) 92%, transparent) !important;
+  }
+
+  .queue-file {
+    gap: 9px !important;
+  }
+
+  .queue-icon {
+    flex-basis: 36px !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 11px !important;
+  }
+
+  .queue-file strong {
+    font-size: 0.94rem !important;
+    line-height: 1.15 !important;
+  }
+
+  .queue-file small {
+    display: block !important;
+    font-size: 0.78rem !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .queue-conversion {
+    display: grid !important;
+    grid-template-columns: auto auto minmax(72px, 1fr) auto 28px !important;
+    gap: 6px !important;
+    align-items: center !important;
+    justify-content: stretch !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .convert-word {
+    display: none !important;
+  }
+
+  .tag,
+  .queue-output-button,
+  .queue-conversion .line-button {
+    min-height: 36px !important;
+    height: 36px !important;
+    border-radius: 11px !important;
+    padding: 0 9px !important;
+    font-size: 0.86rem !important;
+  }
+
+  .queue-output-picker,
+  .queue-output-button {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .queue-output-button {
+    gap: 6px !important;
+  }
+
+  .arrow {
+    font-size: 1.05rem !important;
+  }
+
+  .queue-conversion .icon-only {
+    width: 28px !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    font-size: 1.25rem !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) .queue-actions {
+    position: sticky !important;
+    bottom: 8px !important;
+    z-index: 50 !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: stretch !important;
+    gap: 7px !important;
+    min-height: 58px !important;
+    width: calc(100% - 16px) !important;
+    margin: 8px auto 10px !important;
+    padding: 8px !important;
+    border-radius: 18px !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) .queue-actions > * {
+    width: auto !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    flex: 1 1 0 !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) #addFileButton,
+  body:has(#queuePanel:not([hidden])) #zipButton,
+  body:has(#queuePanel:not([hidden])) #convertButton {
+    min-height: 42px !important;
+    height: 42px !important;
+    padding: 0 9px !important;
+    border-radius: 13px !important;
+    font-size: 0.82rem !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) #convertButton {
+    flex: 1.25 1 0 !important;
+  }
+
+  .info-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .info-card {
+    min-width: 0 !important;
+    display: block !important;
+    padding: 10px !important;
+    border-radius: 14px !important;
+  }
+
+  .info-card .info-icon {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 10px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .info-card h3 {
+    font-size: 0.82rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .info-card h3 span {
+    display: none !important;
+  }
+
+  .info-card p {
+    display: none !important;
+  }
+
+  .info-card a {
+    margin-top: 7px !important;
+    display: inline-block !important;
+    font-size: 0.82rem !important;
+    line-height: 1.15 !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) .hero {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 158px !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) .hero-copy {
+    min-width: 0 !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) .kicker {
+    margin-bottom: 5px !important;
+    font-size: 0.56rem !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) .kicker::before {
+    width: 14px !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) .hero h1 {
+    font-size: 1.2rem !important;
+    line-height: 1.08 !important;
+    max-width: 100% !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) .hero p,
+  body:has(#queuePanel:not([hidden])) .hero-actions {
+    display: none !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) .route-board {
+    min-height: 76px !important;
+    padding: 6px !important;
+    border-radius: 15px !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) .route-route {
+    grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr) !important;
+    gap: 5px !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) #fromCard,
+  body:has(#queuePanel:not([hidden])) #toCard {
+    height: 54px !important;
+    min-height: 54px !important;
+    max-height: 54px !important;
+    padding: 7px 8px !important;
+    border-radius: 12px !important;
+  }
+
+  #fromCard strong,
+  #toCard strong,
+  body:has(#queuePanel:not([hidden])) #fromCard strong,
+  body:has(#queuePanel:not([hidden])) #toCard strong {
+    max-width: calc(100% - 12px) !important;
+    font-size: 0.98rem !important;
+    letter-spacing: 0 !important;
+    overflow: hidden !important;
+    text-overflow: clip !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) #fromCard .format-chevron,
+  body:has(#queuePanel:not([hidden])) #toCard .format-chevron {
+    right: 7px !important;
+    font-size: 1rem !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) .swap-button {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    font-size: 0.92rem !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) .queue-actions {
+    bottom: 8px !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) #seeMoreQueueButton {
+    display: inline-flex !important;
+    flex: 0.92 1 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 42px !important;
+    height: 42px !important;
+    padding: 0 8px !important;
+    border-radius: 13px !important;
+    font-size: 0.78rem !important;
+    white-space: nowrap !important;
+  }
+
+  .footer-social-slots {
+    display: flex !important;
+    align-items: center !important;
+    gap: 9px !important;
+    margin-top: 12px !important;
+  }
+
+  .footer-social-slots .social-slot {
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 11px !important;
+    border: 1px solid var(--line) !important;
+    background: color-mix(in srgb, var(--panel-soft) 82%, var(--primary)) !important;
+  }
+}
+
+/* Final phone fixes: full format labels, smaller menu button, sticky queue actions */
+@media (max-width: 700px) {
+  .mobile-menu-button {
+    width: 36px !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    border-radius: 11px !important;
+    gap: 3px !important;
+  }
+
+  .mobile-menu-button span {
+    width: 15px !important;
+    height: 2px !important;
+  }
+
+  .mobile-menu-button[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(5px) rotate(45deg) !important;
+  }
+
+  .mobile-menu-button[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-5px) rotate(-45deg) !important;
+  }
+
+  .route-route {
+    width: calc(100% - 8px) !important;
+    grid-template-columns: minmax(108px, 1fr) 34px minmax(108px, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  .route-board {
+    padding: 8px !important;
+  }
+
+  #fromCard,
+  #toCard {
+    height: 72px !important;
+    min-height: 72px !important;
+    max-height: 72px !important;
+    padding: 8px 12px !important;
+  }
+
+  #fromCard strong,
+  #toCard strong {
+    display: block !important;
+    width: calc(100% - 18px) !important;
+    max-width: calc(100% - 18px) !important;
+    min-width: 0 !important;
+    font-size: 0.98rem !important;
+    line-height: 1 !important;
+    letter-spacing: 0 !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+  }
+
+  #fromCard .format-chevron,
+  #toCard .format-chevron {
+    right: 8px !important;
+  }
+
+  .swap-button {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    min-height: 34px !important;
+    font-size: 1rem !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) .hero {
+    grid-template-columns: minmax(0, 1fr) minmax(210px, 224px) !important;
+    gap: 8px !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) .route-board {
+    min-height: 72px !important;
+    padding: 6px !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) .route-route {
+    width: 100% !important;
+    grid-template-columns: minmax(78px, 1fr) 28px minmax(78px, 1fr) !important;
+    gap: 5px !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) #fromCard,
+  body:has(#queuePanel:not([hidden])) #toCard {
+    height: 52px !important;
+    min-height: 52px !important;
+    max-height: 52px !important;
+    padding: 7px 9px !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) #fromCard strong,
+  body:has(#queuePanel:not([hidden])) #toCard strong {
+    width: calc(100% - 12px) !important;
+    max-width: calc(100% - 12px) !important;
+    font-size: 0.84rem !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) .swap-button {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) #queuePanel {
+    min-height: calc(100svh - 300px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    margin-bottom: 22px !important;
+    padding-bottom: 10px !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) .queue-list {
+    flex: 0 0 auto !important;
+    padding-bottom: 34px !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) .queue-actions {
+    position: sticky !important;
+    bottom: 8px !important;
+    z-index: 999 !important;
+    margin-top: auto !important;
+    margin-bottom: 8px !important;
+    isolation: isolate !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) .info-section {
+    margin-top: 16px !important;
+    clear: both !important;
+  }
+}
+
+@media (max-width: 380px) {
+  body:has(#queuePanel:not([hidden])) .hero {
+    grid-template-columns: minmax(0, 1fr) minmax(196px, 206px) !important;
+  }
+
+  body:has(#queuePanel:not([hidden])) #fromCard strong,
+  body:has(#queuePanel:not([hidden])) #toCard strong {
+    font-size: 0.78rem !important;
+  }
+}

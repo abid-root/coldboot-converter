@@ -72,7 +72,10 @@ const elements = {
   toolsModal: $('#toolsModal'),
   toolsModalBody: $('#toolsModalBody'),
   openToolsButtons: document.querySelectorAll('[data-open-tools]'),
-  closeTools: $('#closeTools')
+  closeTools: $('#closeTools'),
+
+  mobileMenuButton: $('#mobileMenuButton'),
+  mobileMenu: $('#mobileMenu')
 };
 
 
@@ -129,6 +132,16 @@ function init() {
 
 
 function bindEvents() {
+  if (elements.mobileMenuButton && elements.mobileMenu) {
+    elements.mobileMenuButton.addEventListener('click', event => {
+      event.stopPropagation();
+      toggleMobileMenu();
+    });
+    elements.mobileMenu.querySelectorAll('a, button').forEach(item => {
+      item.addEventListener('click', closeMobileMenu);
+    });
+  }
+
   elements.themeToggle.addEventListener('click', () => {
     const html = document.documentElement;
     html.dataset.theme = html.dataset.theme === 'light' ? 'dark' : 'light';
@@ -141,6 +154,7 @@ function bindEvents() {
   document.addEventListener('click', event => {
     if (!event.target.closest('.service-switcher')) elements.serviceMenu.hidden = true;
     if (!event.target.closest('.upload-split')) elements.uploadMenu.hidden = true;
+    if (elements.mobileMenu && !event.target.closest('.topbar-wrap')) closeMobileMenu();
   });
 
   elements.fromCard.addEventListener('click', () => openPicker('from'));
@@ -202,6 +216,30 @@ function bindEvents() {
     Object.assign(state, initialStateFromPath());
     renderAll(true);
   });
+
+  window.addEventListener('keydown', event => {
+    if (event.key === 'Escape') closeMobileMenu();
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 920) closeMobileMenu();
+    updateResponsiveActionLabels();
+  });
+}
+
+function toggleMobileMenu() {
+  if (!elements.mobileMenu || !elements.mobileMenuButton) return;
+  const nextOpen = elements.mobileMenu.hidden;
+  elements.mobileMenu.hidden = !nextOpen;
+  elements.mobileMenuButton.setAttribute('aria-expanded', String(nextOpen));
+  document.body.classList.toggle('mobile-menu-open', nextOpen);
+}
+
+function closeMobileMenu() {
+  if (!elements.mobileMenu || !elements.mobileMenuButton) return;
+  elements.mobileMenu.hidden = true;
+  elements.mobileMenuButton.setAttribute('aria-expanded', 'false');
+  document.body.classList.remove('mobile-menu-open');
 }
 
 function renderAll(replaceUrl = false) {
@@ -218,6 +256,7 @@ function renderAll(replaceUrl = false) {
   bindPreviewTools();
   ensureZipButton();
   updateZipButton();
+  updateResponsiveActionLabels();
   updateMeta(state.from, state.to);
   updateBrowserUrl(state.from, state.to, replaceUrl);
 }
@@ -694,8 +733,10 @@ function setupQueueSeeMore() {
     }
 
     const expanded = panel.classList.contains('queue-expanded');
+    button.dataset.moreCount = String(total - 3);
     button.textContent = expanded ? 'Show less' : `See more (${total - 3})`;
     button.setAttribute('aria-expanded', String(expanded));
+    updateResponsiveActionLabels();
   }
 
   const observer = new MutationObserver(refreshQueueLimit);
@@ -888,6 +929,37 @@ function updateZipButton() {
   const pending = state.queue.some(item => !['converted', 'error'].includes(item.status));
 
   zipButton.hidden = !(converted.length > 1 && !pending);
+}
+
+function updateResponsiveActionLabels() {
+  const isPhone = window.matchMedia('(max-width: 700px)').matches;
+  const addButton = elements.addFileButton;
+  const zipButton = document.getElementById('zipButton');
+  const convertButton = elements.convertButton;
+  const seeMoreButton = document.getElementById('seeMoreQueueButton');
+
+  if (addButton) addButton.textContent = isPhone ? 'Add' : 'Add more files';
+  if (zipButton) zipButton.textContent = isPhone ? 'ZIP' : 'Download ZIP';
+  if (seeMoreButton) {
+    const expanded = seeMoreButton.getAttribute('aria-expanded') === 'true';
+    const count = seeMoreButton.dataset.moreCount || '';
+    seeMoreButton.textContent = expanded
+      ? (isPhone ? 'Less' : 'Show less')
+      : (isPhone ? `More${count ? ` ${count}` : ''}` : `See more${count ? ` (${count})` : ''}`);
+  }
+  if (!convertButton) return;
+
+  const converting = state.queue.some(item => item.status === 'converting');
+  const converted = state.queue.some(item => item.status === 'converted' && item.downloadUrl);
+  const pending = state.queue.some(item => !['converted', 'error'].includes(item.status));
+
+  if (converting) {
+    convertButton.textContent = isPhone ? 'Working' : 'Converting...';
+  } else if (converted && !pending) {
+    convertButton.textContent = isPhone ? 'Download' : 'Download converted';
+  } else {
+    convertButton.textContent = 'Convert';
+  }
 }
 
 async function downloadConvertedZip() {

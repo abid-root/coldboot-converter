@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en" data-theme="dark">
   <head>
     <meta charset="utf-8">
@@ -19,14 +19,28 @@
             <span class="brand-text"><strong>FlowSync</strong><span>file forge</span></span>
           </a>
           <nav class="nav-links" aria-label="Main navigation">
-            <button type="button" data-open-tools>Tools</button>
-            <a href="../image-converter/">Images</a>
-            <a href="../pdf-converter/">PDF</a>
+            <a href="../">Home</a>
+            <a href="#blog">Blog</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#contact">Contact</a>
+            <button class="nav-more-tools" type="button" data-open-tools>More tools</button>
           </nav>
           <div class="nav-actions">
+            <button class="mobile-menu-button" id="mobileMenuButton" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
             <button class="icon-button" id="themeToggle" type="button" aria-label="Toggle theme">&#9680;</button>
           </div>
         </div>
+        <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation" hidden>
+          <a href="../">Home</a>
+          <a href="#blog">Blog</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#contact">Contact</a>
+          <button type="button" data-open-tools>More tools</button>
+        </nav>
       </header>
 
       <main>
@@ -149,12 +163,18 @@
               <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2.7 20.2 7.4v9.2L12 21.3 3.8 16.6V7.4L12 2.7Zm0 2.6L6.2 8.6V15.4L12 18.7l5.8-3.3V8.6L12 5.3Z"/></svg></span>
               <span class="brand-text"><strong>FlowSync</strong><span>file forge</span></span>
             </a>
-            <p>Organized converter UI for image, video, audio, PDF, document, and presentation tools.</p>
+            <p>Organized converter UI for image, PDF, and icon tools.</p>
+            <div class="footer-social-slots" aria-label="Social links">
+              <span class="social-slot" aria-hidden="true"></span>
+              <span class="social-slot" aria-hidden="true"></span>
+              <span class="social-slot" aria-hidden="true"></span>
+              <span class="social-slot" aria-hidden="true"></span>
+              <span class="social-slot" aria-hidden="true"></span>
+            </div>
           </div>
-          <div><h4>Services</h4><a href="../image-converter/">Images</a><a href="../video-converter/">Video</a><a href="../audio-converter/">Audio</a></div>
-          <div><h4>Documents</h4><a href="../pdf-converter/">PDF</a><a href="../document-converter/">Documents</a><a href="../presentation-converter/">Presentations</a></div>
-          <div><h4>Popular</h4><a href="../png-to-jpg/">PNG to JPG</a><a href="../mp4-to-mp3/">MP4 to MP3</a><a href="../docx-to-pdf/">DOCX to PDF</a></div>
-          <div><h4>Contact</h4><a href="mailto:hello@example.com">hello@example.com</a><a href="../tools/">All tools</a><a href="../sitemap.xml">Sitemap</a></div>
+          <div><h4>Menu</h4><a href="../">Home</a><a href="#blog">Blog</a><a href="#pricing">Pricing</a><a href="#contact">Contact</a></div>
+          <div><h4>Tools</h4><a href="../tools/">All tools</a><a href="../image-converter/">Image converter</a><a href="../pdf-converter/">PDF converter</a></div>
+          <div><h4>Contact</h4><a href="mailto:hello@example.com">hello@example.com</a><a href="../sitemap.xml">Sitemap</a></div>
         </div>
         <a class="support-pill" href="mailto:hello@example.com?subject=Support%20FlowSync" aria-label="Buy me a coffee">Buy me a coffee</a>
       </footer>
