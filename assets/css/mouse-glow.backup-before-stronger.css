@@ -1,0 +1,55 @@
+﻿/* Mouse-follow glow effect */
+
+@media (pointer: fine) {
+  body::before {
+    content: "";
+    position: fixed;
+    left: var(--mouse-x, 50vw);
+    top: var(--mouse-y, 50vh);
+    width: 260px;
+    height: 260px;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 999px;
+    background:
+      radial-gradient(
+        circle,
+        rgba(155, 110, 255, 0.24) 0%,
+        rgba(155, 110, 255, 0.14) 28%,
+        rgba(155, 110, 255, 0.06) 48%,
+        transparent 72%
+      );
+    filter: blur(8px);
+    mix-blend-mode: screen;
+    transition:
+      opacity 160ms ease,
+      width 180ms ease,
+      height 180ms ease,
+      background 180ms ease;
+  }
+
+  body.mouse-glow-ready::before {
+    opacity: 1;
+  }
+
+  body.mouse-glow-hover::before {
+    width: 330px;
+    height: 330px;
+    background:
+      radial-gradient(
+        circle,
+        rgba(255, 181, 71, 0.20) 0%,
+        rgba(155, 110, 255, 0.14) 32%,
+        rgba(155, 110, 255, 0.06) 52%,
+        transparent 74%
+      );
+  }
+}
+
+@media (pointer: coarse) {
+  body::before {
+    display: none !important;
+  }
+}

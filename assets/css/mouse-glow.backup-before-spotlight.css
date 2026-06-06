@@ -1,0 +1,67 @@
+﻿/* Strong mouse-follow glow effect */
+
+@media (pointer: fine) {
+  body::before {
+    content: "";
+    position: fixed;
+    left: var(--mouse-x, 50vw);
+    top: var(--mouse-y, 50vh);
+
+    width: 220px;
+    height: 220px;
+
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0;
+
+    transform: translate(-50%, -50%);
+    border-radius: 999px;
+
+    background:
+      radial-gradient(
+        circle,
+        rgba(177, 132, 255, 0.55) 0%,
+        rgba(139, 92, 246, 0.36) 20%,
+        rgba(139, 92, 246, 0.18) 42%,
+        rgba(139, 92, 246, 0.05) 64%,
+        transparent 78%
+      );
+
+    filter: blur(3px);
+    mix-blend-mode: screen;
+
+    transition:
+      opacity 120ms ease,
+      width 160ms ease,
+      height 160ms ease,
+      background 160ms ease,
+      filter 160ms ease;
+  }
+
+  body.mouse-glow-ready::before {
+    opacity: 1;
+  }
+
+  body.mouse-glow-hover::before {
+    width: 270px;
+    height: 270px;
+
+    background:
+      radial-gradient(
+        circle,
+        rgba(255, 181, 71, 0.48) 0%,
+        rgba(177, 132, 255, 0.34) 24%,
+        rgba(139, 92, 246, 0.18) 46%,
+        rgba(139, 92, 246, 0.06) 66%,
+        transparent 80%
+      );
+
+    filter: blur(2px);
+  }
+}
+
+@media (pointer: coarse) {
+  body::before {
+    display: none !important;
+  }
+}
